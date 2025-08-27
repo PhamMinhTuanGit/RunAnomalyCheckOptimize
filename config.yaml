@@ -1,0 +1,19 @@
+experiment:
+  name: "NHITS_TimeSeries"
+  run_name: "NHITS_run"
+
+data:
+  path: "data/raw/train/"
+  freq: "5min"
+  split_ratio: 0.8
+  traffic_direction: "in"
+
+model:
+  h: 12
+  input_size: 72
+  max_steps: 100
+  lr: 1e-3
+  batch_size: 32
+  n_blocks: [3, 3, 3]        # List[int], mỗi stack có 3 block
+  mlp_units: [[512, 512], [512, 512], [512, 512]]   # List[List[int]]
+  early_stop_patience_steps: -1

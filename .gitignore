@@ -1,0 +1,54 @@
+# --- Môi trường ảo Python ---
+# Bỏ qua thư mục chứa các thư viện đã cài đặt
+.venv/
+venv/
+airflow_venv/
+
+# --- Cache và file biên dịch của Python ---
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# --- Thư mục cài đặt và build ---
+build/
+dist/
+*.egg-info/
+
+# --- Airflow ---
+# Bỏ qua toàn bộ thư mục airflow_home vì nó chứa database, logs,
+# và các file cấu hình được sinh ra lúc chạy.
+airflow_home/
+
+# --- Dữ liệu ---
+# Không nên đưa các file dữ liệu thô hoặc đã xử lý vào Git,
+# đặc biệt nếu chúng có kích thước lớn.
+# Chỉ nên commit cấu trúc thư mục (xem hướng dẫn bên dưới).
+/data/raw/train/*.xlsx
+/data/raw/train/*.xls
+/data/processed/*.csv
+
+# --- File nhạy cảm ---
+# Không bao giờ commit mật khẩu hoặc các file chứa thông tin nhạy cảm.
+*.json.generated
+
+# --- File của hệ điều hành và IDE ---
+# macOS
+.DS_Store
+
+# Visual Studio Code
+.vscode/
+
+# PyCharm
+.idea/
+
+# --- File log ---
+*.log
+logs/
+
+experiments
+
+
+.env
+mlruns
+lightning_logs
