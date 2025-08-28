@@ -1,1 +1,25 @@
-1"$1b679880-7115-42f5-901c-ba879457757a*ôü¿Åø”
+
+D
+$
+__dummy"
+__dummy_idJbrief_sparrow
+ÆŠÀÅ¨ÈßèÆŠÀÅ¨Èßè
+h
+H
+	unique_id!ID cho tá»«ng chuá»—i thá»i gian"	unique_idJbrief_sparrow
+ÆŠÀÅ€íåèÆŠÀÅ€íåè1"$bc9f728b-23c0-42e6-8bbd-aa5b3232704c*ÆŠÀÅè¦ÿè2ü
+Û
+time_series_featuresbrief_sparrow	unique_id"
+y"
+day_of_week"
+hour"
+lag1"
+lag72€ç„:ÚdsZ?=/home/tuanpm/work/Project_1/data/processed/train_data.parquetŠ1feast.infra.offline_stores.file_source.FileSource¢=/home/tuanpm/work/Project_1/data/processed/train_data.parquet’ÆŠÀÅ¸˜â"ÆŠÀÅØÜÓè@b
+	unique_id
+ÆŠÀÅØ”ëèÆŠÀÅØ”ëèR£
+ 
+,feast.infra.online_stores.sqlite.SqliteTable"p
+J/home/tuanpm/work/Project_1/feature_repo/feature_repo/data/online_store.db"brief_sparrow_time_series_featuresbêdsZ?=/home/tuanpm/work/Project_1/data/processed/train_data.parquetŠ1feast.infra.offline_stores.file_source.FileSource¢=/home/tuanpm/work/Project_1/data/processed/train_data.parquetªbrief_sparrow’ÆŠÀÅ¸˜â"ÆŠÀÅØÜÓèŠ/
+
+brief_sparrow
+ÆŠÀÅàÑÌâÆŠÀÅàÑÌâ

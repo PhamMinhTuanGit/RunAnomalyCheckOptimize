@@ -1,0 +1,11 @@
+services:
+  feast:
+    build: 
+      context: .
+      dockerfile: Dockerfile_feast
+    working_dir: /app/feature_repo
+    volumes:
+      #- ./feature_repo/feature_repo:/app/feature_repo  # mount toàn bộ thư mục chứa feature_store.yaml
+      - ./data/processed:/data/processed
+      - ./feature_repo/feature_repo/data:/home/tuanpm/work/Project_1/feature_repo/feature_repo/data
+    command: ["feast", "apply"]
