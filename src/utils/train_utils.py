@@ -53,7 +53,8 @@ def load_and_process_data(
     folder_path: str,
     output_csv_path: str = None,
     traffic_direction: str = 'in',
-    file_extension: str = 'xlsx'
+    file_extension: str = 'xlsx',
+    output_parquet_path: str = None
 ):
     """
     Tự động tìm, tải và xử lý tất cả các file trong một thư mục,
@@ -84,10 +85,10 @@ def load_and_process_data(
     # 2. Lặp qua từng file và xử lý (logic tương tự như trước)
     for file_path in file_paths:
         try:
-            print(f"  - Đang xử lý file: {os.path.basename(file_path)}") # Lấy tên file cho gọn
-            df_raw = pd.read_excel(file_path, header=0)
+            print(f"  - Đang xử lý file: {os.path.basename(file_path)}") 
+            df_raw = pd.read_excel(file_path, header=3)
+            print(df_raw.head(2)) 
             df_raw.columns = df_raw.columns.str.strip()
-
             df_processed = process_traffic_data(df_raw, direction=traffic_direction)
             df_processed.dropna(inplace=True)
 
@@ -107,7 +108,7 @@ def load_and_process_data(
         print(f"Đang lưu dữ liệu đã gộp vào: '{output_csv_path}'")
         os.makedirs(os.path.dirname(output_csv_path), exist_ok=True)
         combined_df.to_csv(output_csv_path, index=False)
-        combined_df.to_parquet("data/processed/train_data.parquet", index=False)
+        combined_df.to_parquet(output_parquet_path, index=False)
         print(f"\nHoàn tất! Dữ liệu đã được lưu thành công. Tổng số dòng: {len(combined_df)}")
     
     return combined_df

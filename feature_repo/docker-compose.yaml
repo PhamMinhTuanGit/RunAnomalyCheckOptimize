@@ -1,0 +1,11 @@
+
+services:
+  feast:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - ./feature_repo:/app/feature_repo
+      - ./data:/app/feature_repo/data
+    working_dir: /app/feature_repo
+    command: ["feast", "apply"]

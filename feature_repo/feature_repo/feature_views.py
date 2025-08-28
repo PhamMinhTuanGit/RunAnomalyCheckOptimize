@@ -1,7 +1,17 @@
 from datetime import timedelta
 from feast import Entity, FeatureView, FileSource, Field
 from feast.types import Int32, Float32
-import os
+import os, sys
+
+import yaml
+
+def load_config(path="config.yaml"):
+    with open(path, "r") as f:
+        return yaml.safe_load(f)
+
+   
+config = load_config("config.yaml")
+
 # Entity: định danh cho mỗi chuỗi time-series
 time_series = Entity(
     name="unique_id",
@@ -13,7 +23,7 @@ time_series = Entity(
 REPO_ROOT = os.path.abspath(os.path.join(os.path.dirname(__file__), "../.."))
 
 time_series_source = FileSource(
-    path=os.path.join(REPO_ROOT, "data/processed/train_data.csv"),
+    path=os.path.join(REPO_ROOT, config["data"]["processed_data_parquet_path"]),
     timestamp_field="ds",
 )
 # Feature View
