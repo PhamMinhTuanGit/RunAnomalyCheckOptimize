@@ -1,6 +1,15 @@
 from src.utils.train_utils import load_and_process_data
 from src.utils.config import load_config
-def prepare_training_data(raw_dir="data/raw", output_csv="data/processed/train_data.csv", traffic_direction="in", output_parquet_path=None):
+import pandas as pd
+from statsmodels.tsa.seasonal import seasonal_decompose
+import matplotlib.pyplot as plt
+from scipy.fftpack import fft
+def prepare_training_data(
+    raw_dir="data/raw",
+    output_csv="data/processed/train_data.csv",
+    traffic_direction="in",
+    output_parquet_path=None
+):
     df = load_and_process_data(
         folder_path=raw_dir,
         output_csv_path=output_csv,
@@ -8,8 +17,10 @@ def prepare_training_data(raw_dir="data/raw", output_csv="data/processed/train_d
         file_extension="xlsx",
         output_parquet_path=output_parquet_path
     )
-    return df
 
+
+
+    return df
 if __name__ == "__main__":
     config = load_config("config.yaml")
 
@@ -20,3 +31,5 @@ if __name__ == "__main__":
         traffic_direction=config["data"]["traffic_direction"],
         output_parquet_path=config["data"]["processed_data_parquet_path"]
     )
+    
+    print(df.head())

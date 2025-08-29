@@ -1,0 +1,9 @@
+h: 24
+input_size: 72
+hist_exog_list: ["lag_5min", "lag_30min", "rolling_mean", "rolling_std", "lag_2h"]
+max_steps: 100
+lr: 0.001
+batch_size: 64
+n_blocks: [2, 2, 2]       
+mlp_units: [[1024, 1024], [1024, 1024], [1024, 1024]]
+early_stop_patience_steps: -1

@@ -103,7 +103,14 @@ def load_and_process_data(
     # 3. Gộp và lưu kết quả
     print("\nĐang gộp dữ liệu từ tất cả các file...")
     combined_df = pd.concat(list_of_dfs, ignore_index=True)
-
+    combined_df['rolling_mean'] = combined_df['y'].rolling(window=7).mean()
+    combined_df['rolling_std'] = combined_df['y'].rolling(window=7).std()
+    combined_df['lag_5min'] = combined_df.groupby('unique_id')['y'].shift(1)      # 1 step back (5 min)
+    combined_df['lag_30min'] = combined_df.groupby('unique_id')['y'].shift(6)
+    combined_df['lag_2h'] = combined_df.groupby('unique_id')['y'].shift(24)
+    # Đảm bảo timestamp đúng định dạng và sắp xếp
+    # Drop rows with any NaNs in the required columns
+    combined_df = combined_df.dropna(subset=['y', 'lag_5min', 'lag_30min', 'lag_2h'])
     if output_csv_path:
         print(f"Đang lưu dữ liệu đã gộp vào: '{output_csv_path}'")
         os.makedirs(os.path.dirname(output_csv_path), exist_ok=True)
