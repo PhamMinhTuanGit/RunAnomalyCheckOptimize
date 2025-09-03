@@ -1,11 +1,14 @@
 services:
   feast:
-    build: 
+    build:
       context: .
       dockerfile: Dockerfile_feast
-    working_dir: /app/feature_repo
+    # Thư mục làm việc nên là nơi chứa file feature_store.yaml
+    working_dir: /app/feature_repo/feature_repo
     volumes:
-      #- ./feature_repo/feature_repo:/app/feature_repo  # mount toàn bộ thư mục chứa feature_store.yaml
-      - ./data/processed:/data/processed
-      - ./feature_repo/feature_repo/data:/home/tuanpm/work/Project_1/feature_repo/feature_repo/data
+      # Mount toàn bộ thư mục dự án vào /app trong container
+      - .:/app
+    # 'feast apply' sẽ đọc các định nghĩa feature và cập nhật registry.
+    # Đường dẫn FileSource trong feature view của bạn nên là đường dẫn tương đối,
+    # ví dụ: ../../data/processed/train_data.parquet
     command: ["feast", "apply"]

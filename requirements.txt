@@ -8,3 +8,6 @@ neuralforecast
 mlflow  
 pyarrow 
 feast
+watchdog
+statsmodels
+matplotlib

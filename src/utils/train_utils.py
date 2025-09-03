@@ -1,6 +1,7 @@
 import pandas as pd
 import json
 import numpy as np
+import logging
 import os
 import glob
 def convert_speed_to_mbps(speed_str):
@@ -70,52 +71,55 @@ def load_and_process_data(
         pd.DataFrame: DataFrame đã được gộp và xử lý, hoặc None nếu không có file nào được xử lý.
     """
     # 1. Tự động tìm tất cả các file trong thư mục
-    print(f"Đang tìm kiếm các file *.{file_extension} trong thư mục: '{folder_path}'")
+    logging.info(f"Searching for *.{file_extension} files in directory: '{folder_path}'")
     search_pattern = os.path.join(folder_path, f'*.{file_extension}')
     file_paths = glob.glob(search_pattern)
 
     if not file_paths:
-        print("Không tìm thấy file nào phù hợp trong thư mục. Kết thúc.")
+        logging.warning("No matching files found in the directory. Exiting.")
         return None
     
-    print(f"Tìm thấy {len(file_paths)} file. Bắt đầu xử lý...")
+    logging.info(f"Found {len(file_paths)} files. Starting processing...")
     
     list_of_dfs = []
 
     # 2. Lặp qua từng file và xử lý (logic tương tự như trước)
     for file_path in file_paths:
         try:
-            print(f"  - Đang xử lý file: {os.path.basename(file_path)}") 
+            logging.info(f"  - Processing file: {os.path.basename(file_path)}")
             df_raw = pd.read_excel(file_path, header=3)
-            print(df_raw.head(2)) 
             df_raw.columns = df_raw.columns.str.strip()
             df_processed = process_traffic_data(df_raw, direction=traffic_direction)
             df_processed.dropna(inplace=True)
 
             list_of_dfs.append(df_processed)
         except Exception as e:
-            print(f"    -> Lỗi khi xử lý file {file_path}: {e}")
+            logging.error(f"    -> Error processing file {file_path}: {e}", exc_info=True)
 
     if not list_of_dfs:
-        print("Không có file nào được xử lý thành công. Kết thúc.")
+        logging.warning("No files were processed successfully. Exiting.")
         return None
 
     # 3. Gộp và lưu kết quả
-    print("\nĐang gộp dữ liệu từ tất cả các file...")
+    logging.info("\nCombining data from all files...")
     combined_df = pd.concat(list_of_dfs, ignore_index=True)
+
+    # Sort by timestamp and remove duplicates before calculating time-dependent features
+    combined_df.sort_values('ds', inplace=True)
+    combined_df.drop_duplicates(subset=['ds'], keep='last', inplace=True)
+
     combined_df['rolling_mean'] = combined_df['y'].rolling(window=7).mean()
     combined_df['rolling_std'] = combined_df['y'].rolling(window=7).std()
     combined_df['lag_5min'] = combined_df.groupby('unique_id')['y'].shift(1)      # 1 step back (5 min)
     combined_df['lag_30min'] = combined_df.groupby('unique_id')['y'].shift(6)
     combined_df['lag_2h'] = combined_df.groupby('unique_id')['y'].shift(24)
-    # Đảm bảo timestamp đúng định dạng và sắp xếp
-    # Drop rows with any NaNs in the required columns
-    combined_df = combined_df.dropna(subset=['y', 'lag_5min', 'lag_30min', 'lag_2h'])
+    # Drop rows with any NaNs, which are created by rolling/lag features
+    combined_df.dropna(inplace=True)
     if output_csv_path:
-        print(f"Đang lưu dữ liệu đã gộp vào: '{output_csv_path}'")
+        logging.info(f"Saving combined data to: '{output_csv_path}' and '{output_parquet_path}'")
         os.makedirs(os.path.dirname(output_csv_path), exist_ok=True)
         combined_df.to_csv(output_csv_path, index=False)
         combined_df.to_parquet(output_parquet_path, index=False)
-        print(f"\nHoàn tất! Dữ liệu đã được lưu thành công. Tổng số dòng: {len(combined_df)}")
+        logging.info(f"\nComplete! Data saved successfully. Total rows: {len(combined_df)}")
     
     return combined_df

@@ -28,7 +28,7 @@ time_series_source = FileSource(
 )
 
 time_series_fv = FeatureView(
-    name="time_series_features",
+    name="time_series_fv",
     entities=[time_series],
     ttl=timedelta(days=365),
     schema=[

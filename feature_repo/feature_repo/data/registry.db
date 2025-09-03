@@ -7,8 +7,8 @@ D
 $
 __dummy"
 __dummy_idJbrief_sparrow
-ÆŠÀÅ¨Èßè¬ÅÅ±¡1"$8605d03d-3b7d-4cdf-959b-7116bc45135d*²¶ÅÅ‚ıº2–
-ö
+ÆŠÀÅ¨Èßè•åßÅ˜œŞ­1"$5a3f3e2c-66cb-4e07-bcda-9a915cf39168*•åßÅĞÍù¯2¶
+•
 time_series_featuresbrief_sparrow	unique_id"
 y"
 rolling_mean"
@@ -16,12 +16,23 @@ __dummy_idJbrief_sparrow
 lag_5min"
 	lag_30min"
 
-lag_2h2€ç„:ØdsZ?=/home/tuanpm/work/Project_1/data/processed/train_data.parquetŠ1feast.infra.offline_stores.file_source.FileSource¢=/home/tuanpm/work/Project_1/data/processed/train_data.parquet’§ÁÄÅ€˜ "§ÁÄÅ€˜ @b
-	unique_id
-ÆŠÀÅØ”ëè§ÁÄÅ¸§Á.R£
+lag_2h2€ç„:÷dsZNL/Users/phamminhtuan/Desktop/VHT_work/MLOps/data/processed/train_data.parquetŠ1feast.infra.offline_stores.file_source.FileSource¢L/Users/phamminhtuan/Desktop/VHT_work/MLOps/data/processed/train_data.parquet’­äßÅè«z"¸äßÅğ‰¨Ï@b
+	unique_id
+ÆŠÀÅØ”ëè¸äßÅÈ¨°Ï2±
+
+time_series_fvbrief_sparrow	unique_id"
+y"
+rolling_mean"
+rolling_std"
+lag_5min"
+	lag_30min"
+
+lag_2h2€ç„:ødsZNL/Users/phamminhtuan/Desktop/VHT_work/MLOps/data/processed/train_data.parquetŠ1feast.infra.offline_stores.file_source.FileSource¢L/Users/phamminhtuan/Desktop/VHT_work/MLOps/data/processed/train_data.parquet’åßÅØšî"•åßÅØŸÈ­@b
+	unique_id
+•åßÅğùÑ­•åßÅğùÑ­R£
  
 ,feast.infra.online_stores.sqlite.SqliteTable"p
-J/home/tuanpm/work/Project_1/feature_repo/feature_repo/data/online_store.db"brief_sparrow_time_series_featuresbêdsZ?=/home/tuanpm/work/Project_1/data/processed/train_data.parquetŠ1feast.infra.offline_stores.file_source.FileSource¢=/home/tuanpm/work/Project_1/data/processed/train_data.parquetªbrief_sparrow’ÆŠÀÅ¸˜â"ÆŠÀÅØÜÓèŠ/
+J/home/tuanpm/work/Project_1/feature_repo/feature_repo/data/online_store.db"brief_sparrow_time_series_featuresbêdsZ?=/home/tuanpm/work/Project_1/data/processed/train_data.parquetŠ1feast.infra.offline_stores.file_source.FileSource¢=/home/tuanpm/work/Project_1/data/processed/train_data.parquetªbrief_sparrow’ÆŠÀÅ¸˜â"ÆŠÀÅØÜÓèb‡dsZNL/Users/phamminhtuan/Desktop/VHT_work/MLOps/data/processed/train_data.parquetŠ1feast.infra.offline_stores.file_source.FileSource¢L/Users/phamminhtuan/Desktop/VHT_work/MLOps/data/processed/train_data.parquetªbrief_sparrow’­äßÅè«z"¸äßÅğ‰¨ÏŠ/
 
 brief_sparrow
 ÆŠÀÅàÑÌâÆŠÀÅàÑÌâ
