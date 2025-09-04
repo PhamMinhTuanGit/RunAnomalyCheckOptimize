@@ -17,7 +17,7 @@ model:
     max_steps: 100
     lr: 1e-3
     batch_size: 32
-    n_blocks: [3, 3, 3]        # List[int], mỗi stack có 3 block
+    n_blocks: [2, 2, 2]        # List[int], mỗi stack có 3 block
     mlp_units: [[512, 512], [512, 512], [512, 512]]   # List[List[int]]
     early_stop_patience_steps: -1
   nbeatsx:
@@ -27,7 +27,7 @@ model:
     max_steps: 100
     lr: 1e-3
     batch_size: 32
-    n_blocks: [3, 3, 3]       
+    n_blocks: [2, 2, 2]       
     mlp_units: [[512, 512], [512, 512], [512, 512]]   
     early_stop_patience_steps: -1
 log:

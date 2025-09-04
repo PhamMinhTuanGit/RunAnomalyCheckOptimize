@@ -34,17 +34,19 @@ def run_pipeline():
         # 3. Lấy dữ liệu feature lịch sử từ Feast
         feature_list = [
             "time_series_fv:y",
-            "time_series_fv:lag_5min",
-            "time_series_fv:lag_30min",
-            "time_series_fv:rolling_mean",
-            "time_series_fv:rolling_std",
-            "time_series_fv:lag_2h"
+            # "time_series_fv:lag_5min",
+            # "time_series_fv:lag_30min",
+            # "time_series_fv:rolling_mean",
+            # "time_series_fv:rolling_std",
+            # "time_series_fv:lag_2h"
         ]
 
         df = store.get_historical_features(
             entity_df=entity_df[["unique_id", "ds"]],
             features=feature_list
         ).to_df()
+        df = df.copy().head(1000)
+        print(df.head())
         logger.info(f"Successfully fetched {len(df)} rows from Feast.")
 
         # 4. Split train/test
@@ -57,7 +59,7 @@ def run_pipeline():
 
         # 5. Train model
         logger.info("Training NBEATSx model...")
-        model, n_params, score = train_nbeatsx(train_df, test_df, config)
+        model, n_params, score = train_nhits(train_df, test_df, config)
 
         # 6. Log results to MLflow
         logger.info("Logging metrics and model to MLflow...")
