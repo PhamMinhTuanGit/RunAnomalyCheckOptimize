@@ -17,7 +17,19 @@ def prepare_training_data(
         file_extension="xlsx",
         output_parquet_path=output_parquet_path
     )
-
+def prepare_inference_data(
+    raw_dir="data/real_time",
+    output_csv="data/processed/inference_data.csv",
+    traffic_direction="in",
+    output_parquet_path=None
+):
+    df = load_and_process_data(
+        folder_path=raw_dir,
+        output_csv_path=output_csv,
+        traffic_direction=traffic_direction,
+        file_extension="xlsx",
+        output_parquet_path=output_parquet_path
+    )
 
 
     return df

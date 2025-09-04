@@ -30,6 +30,18 @@ model:
     n_blocks: [2, 2, 2]       
     mlp_units: [[512, 512], [512, 512], [512, 512]]   
     early_stop_patience_steps: -1
+  patchtst:
+    h: 12
+    input_size: 72
+    patch_len: 24
+    stride: 24
+    max_steps: 100
+    lr: 1e-3
+    scaler_type: 'robust'
+    revin: False
+    batch_size: 32
+    n_heads: 8       
+    early_stop_patience_steps: -1
 log:
   data_log: "logs/data_pipeline.log"
   training_log: "logs/training.log"
