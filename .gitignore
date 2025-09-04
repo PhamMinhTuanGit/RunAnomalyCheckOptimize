@@ -27,7 +27,7 @@ airflow_home/
 /data/raw/train/*.xlsx
 /data/raw/train/*.xls
 /data/processed/*.csv
-
+/data
 # --- File nhạy cảm ---
 # Không bao giờ commit mật khẩu hoặc các file chứa thông tin nhạy cảm.
 *.json.generated

@@ -115,3 +115,6 @@ def train_nbeatsx(train_df, test_df, config):
 
     nf.save("experiments/models/nbeatsx_model", overwrite=True)
     return nf, n_params, score
+
+def train_timesnet(train_df, test_df, config):
+    pass
