@@ -1,10 +1,12 @@
-import pandas as pd
-from src.utils.config import load_config
-from src.data.preprocess import prepare_training_data
-config = load_config("config.yaml")
-df = prepare_training_data(
-    raw_dir=config['data']['path'],
-    output_csv=config["data"]["processed_data_path"],
-    traffic_direction=config["data"]["traffic_direction"]
-)
-print(df.head())
+import sys
+import os
+
+# Chặn toàn bộ stdout tạm thời
+sys.stdout = open(os.devnull, 'w')
+
+# Import hoặc chạy NeuralForecast
+from neuralforecast import NeuralForecast
+# ... hoặc đoạn mã gây ra log
+
+# Khôi phục stdout
+sys.stdout = sys.__stdout__

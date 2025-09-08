@@ -55,7 +55,8 @@ def load_and_process_data(
     output_csv_path: str = None,
     traffic_direction: str = 'in',
     file_extension: str = 'xlsx',
-    output_parquet_path: str = None
+    output_parquet_path: str = None,
+    exog: bool = False
 ):
     """
     Tự động tìm, tải và xử lý tất cả các file trong một thư mục,
@@ -107,14 +108,14 @@ def load_and_process_data(
     # Sort by timestamp and remove duplicates before calculating time-dependent features
     combined_df.sort_values('ds', inplace=True)
     combined_df.drop_duplicates(subset=['ds'], keep='last', inplace=True)
-
-    combined_df['rolling_mean'] = combined_df['y'].rolling(window=7).mean()
-    combined_df['rolling_std'] = combined_df['y'].rolling(window=7).std()
-    combined_df['lag_5min'] = combined_df.groupby('unique_id')['y'].shift(1)      # 1 step back (5 min)
-    combined_df['lag_30min'] = combined_df.groupby('unique_id')['y'].shift(6)
-    combined_df['lag_2h'] = combined_df.groupby('unique_id')['y'].shift(24)
-    # Drop rows with any NaNs, which are created by rolling/lag features
-    combined_df.dropna(inplace=True)
+    if exog:
+        combined_df['rolling_mean'] = combined_df['y'].rolling(window=7).mean()
+        combined_df['rolling_std'] = combined_df['y'].rolling(window=7).std()
+        combined_df['lag_5min'] = combined_df.groupby('unique_id')['y'].shift(1)      # 1 step back (5 min)
+        combined_df['lag_30min'] = combined_df.groupby('unique_id')['y'].shift(6)
+        combined_df['lag_2h'] = combined_df.groupby('unique_id')['y'].shift(24)
+        # Drop rows with any NaNs, which are created by rolling/lag features
+        combined_df.dropna(inplace=True)
     if output_csv_path:
         logging.info(f"Saving combined data to: '{output_csv_path}' and '{output_parquet_path}'")
         os.makedirs(os.path.dirname(output_csv_path), exist_ok=True)

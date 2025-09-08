@@ -26,7 +26,7 @@ def run_pipeline():
     )
     logger = get_logger("Pipeline")
 
-    mlflow.set_experiment(config["experiment"]["name"])
+    mlflow.set_experiment("PatchTST Experiment")
     with mlflow.start_run(run_name=config["experiment"]["run_name"]):
         mlflow.log_artifact("config.yaml")
         store = FeatureStore(repo_path=config['data']['feature_store_path'])  # sửa path repo Feast của bạn
@@ -34,11 +34,11 @@ def run_pipeline():
         # 3. Lấy dữ liệu feature lịch sử từ Feast
         feature_list = [
             "time_series_fv:y",
-            "time_series_fv:lag_5min",
-            "time_series_fv:lag_30min",
-            "time_series_fv:rolling_mean",
-            "time_series_fv:rolling_std",
-            "time_series_fv:lag_2h"
+            # "time_series_fv:lag_5min",
+            # "time_series_fv:lag_30min",
+            # "time_series_fv:rolling_mean",
+            # "time_series_fv:rolling_std",
+            # "time_series_fv:lag_2h"
         ]
 
         df = store.get_historical_features(
@@ -66,7 +66,7 @@ def run_pipeline():
         mlflow.log_metric("MAPE", score)
 
         # Log model artifact (directory)
-        mlflow.log_artifact("experiments/models/nbeatsx_model")
+        mlflow.log_artifact("experiments/models/patchtst_model")
         # Log model in pytorch format for serving
         mlflow.pytorch.log_model(model.models[0], "model")
 

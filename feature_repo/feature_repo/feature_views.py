@@ -1,5 +1,5 @@
 from datetime import timedelta
-from feast import Entity, FeatureView, FileSource, Field
+from feast import Entity, FeatureView, FileSource, Field, PushSource
 from feast.types import Int32, Float32
 import os
 
@@ -27,19 +27,39 @@ time_series_source = FileSource(
     timestamp_field="ds",
 )
 
+time_series_push_source = PushSource(
+    name="time_series_push_source",
+    batch_source=time_series_source,
+)
 time_series_fv = FeatureView(
     name="time_series_fv",
     entities=[time_series],
     ttl=timedelta(days=365),
     schema=[
         Field(name="y", dtype=Float32),
-        Field(name="rolling_mean", dtype=Float32),
-        Field(name="rolling_std", dtype=Float32),
-        Field(name="lag_5min", dtype=Float32),
-        Field(name="lag_30min", dtype=Float32),
-        Field(name="lag_2h", dtype=Float32),
+        # Field(name="rolling_mean", dtype=Float32),
+        # Field(name="rolling_std", dtype=Float32),
+        # Field(name="lag_5min", dtype=Float32),
+        # Field(name="lag_30min", dtype=Float32),
+        # Field(name="lag_2h", dtype=Float32),
         
     ],
     online=True,
     source=time_series_source,
+    
+)
+time_series_stream_fv = FeatureView(
+    name="time_series_stream_fv",
+    entities=[time_series],
+    ttl=timedelta(days=365),
+    schema=[
+        Field(name="y", dtype=Float32),
+        # Field(name="rolling_mean", dtype=Float32),
+        # Field(name="rolling_std", dtype=Float32),         
+        # Field(name="lag_5min", dtype=Float32),
+        # Field(name="lag_30min", dtype=Float32),
+        # Field(name="lag_2h", dtype=Float32),
+    ],
+    online=True,
+    source=time_series_push_source,
 )

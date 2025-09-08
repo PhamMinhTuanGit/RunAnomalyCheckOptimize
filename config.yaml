@@ -1,6 +1,5 @@
 experiment:
-  name: "NHITS_TimeSeries"
-  run_name: "NHITS_run"
+  run_name: "PatchTST run 1"
 
 data:
   path: "data/raw/train/"
