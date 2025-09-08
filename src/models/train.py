@@ -138,7 +138,7 @@ def train_patchtst(train_df, test_df, config):
     MAX_STEPS = config["model"]["patchtst"]["max_steps"] 
     # Model
     mlflow.set_experiment("PatchTST Experiment")
-    with mlflow.start_run(run_name=config["experiment"]["run_name"]):
+    with mlflow.start_run(run_name=config["experiment"]["run_name"], nested=True):
         mlflow.log_params({
             "h": H,
             "input_size": INPUT_SIZE,
