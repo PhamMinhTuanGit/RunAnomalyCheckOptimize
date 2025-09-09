@@ -48,5 +48,5 @@ if __name__ == "__main__":
         exog = False
     )
     # 1. Chuẩn bị dữ liệu
-    # df = prepare_inference_data(output_parquet_path="data/processed/test_data.parquet", exog = False)
-    print(df.head())
+    df_ = prepare_inference_data(output_parquet_path="data/processed/test_data.parquet", exog = False)
+    print(df.head(), df_.head())

@@ -1,10 +1,10 @@
 experiment:
-  run_name: "PatchTST run 1"
+  run_name: "PatchTST run 2"
 
 data:
   path: "data/raw/train/"
   freq: "5min"
-  split_ratio: 0.8
+  split_ratio: 1
   traffic_direction: "in"
   processed_data_path: "data/processed/train_data.csv"
   processed_data_parquet_path: "data/processed/train_data.parquet"
@@ -34,12 +34,18 @@ model:
     input_size: 72
     patch_len: 24
     stride: 24
-    max_steps: 100
-    lr: 1e-3
+    max_steps: 500
+    hidden_size: 256
+    linear_hidden_size: 512
+    encoder_layers: 6
+    dropout: 0.2
+    fc_dropout: 0.2
+    attn_dropout: 0.1
+    lr: 1e-4
     scaler_type: 'robust'
     revin: False
     batch_size: 32
-    n_heads: 8       
+    n_heads: 16       
     early_stop_patience_steps: -1
 log:
   data_log: "logs/data_pipeline.log"

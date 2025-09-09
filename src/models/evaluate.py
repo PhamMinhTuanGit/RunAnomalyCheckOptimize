@@ -4,7 +4,7 @@ from tqdm import tqdm
 import pandas as pd
 import mlflow
 import os
-nf = NeuralForecast.load("experiments/models/patchtst_model")
+
 import os
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
@@ -30,6 +30,8 @@ def perform_rolling_forecast(nf: NeuralForecast, history_df: pd.DataFrame, futur
 
     # Use tqdm for a progress bar, which is disabled in silent mode
     for i in tqdm(range(0, len(future_df), h), desc="Rolling Forecast Steps", disable=silent):
+        # Create a future dataframe for the next h steps
+        
         # Predict h steps into the future from the end of the current history
         forecast = nf.predict(df=history_df)
         all_forecasts.append(forecast)

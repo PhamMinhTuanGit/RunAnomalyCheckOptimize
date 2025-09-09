@@ -37,9 +37,6 @@ def train_nhits(train_df, test_df, config):
             early_stop_patience_steps=config["model"]["nhits"].get("early_stop_patience_steps", -1),
             loss=DistributionLoss(distribution='Normal', level=[80, 90]),
         )]
-        mlflow.pytorch.log_model(models.models[0], "model")
-
-        mlflow.log_params(models[0].__dict__)
 
         nf = NeuralForecast(models=models, freq=config["data"]["freq"])
 
@@ -64,10 +61,15 @@ def train_nhits(train_df, test_df, config):
         # Save model
         nf.save("experiments/models/nhits_model", overwrite=True)
 
-        mlflow.pytorch.log_model(models.models[0], "model")
+        # Create and log input example for the model signature
+        if nf.dataset:
+            # nf.dataset[0] returns a tuple like (input_dict, target_tensor, ...).
+            # We only need the first element for the model signature.
+            input_example = nf.dataset[0][0]
+            mlflow.pytorch.log_model(models[0], "model", input_example=input_example)
+
         mlflow.log_artifact("experiments/models/nhits_model")
     return nf, score, n_params
-
 
 def train_nbeatsx(train_df, test_df, config):
     # Hyperparameters từ config
@@ -96,7 +98,7 @@ def train_nbeatsx(train_df, test_df, config):
             hist_exog_list=HIST_EXOG_LIST,
             loss=DistributionLoss(distribution='Normal', level=[80, 90]),
             )]
-        mlflow.log_params(models[0].__dict__)
+
         nf = NeuralForecast(models=models, freq=config["data"]["freq"])
 
         logger.info("Training NBEATSx model...")
@@ -120,7 +122,14 @@ def train_nbeatsx(train_df, test_df, config):
         score = mape(y_true, y_pred)
         mlflow.log_metric("MAPE", score)
         logger.info(f"Test MAPE for NBEATSx: {score:.2f}")
-        mlflow.pytorch.log_model(models.models[0], "model")
+
+        # Create and log input example for the model signature
+        if nf.dataset:
+            # nf.dataset[0] returns a tuple like (input_dict, target_tensor, ...).
+            # We only need the first element for the model signature.
+            input_example = nf.dataset[0][0]
+            mlflow.pytorch.log_model(models[0], "model", input_example=input_example)
+
         nf.save("experiments/models/nbeatsx_model", overwrite=True)
         mlflow.log_artifact("experiments/models/nbeatsx_model")
     return nf, n_params, score
@@ -128,10 +137,7 @@ def train_nbeatsx(train_df, test_df, config):
 def train_timesnet(train_df, test_df, config):
     pass
 
-
-
-
-def train_patchtst(train_df, test_df, config):
+def train_patchtst(train_df, config):
     # Hyperparameters từ config
     H = config["model"]["patchtst"]["h"]
     INPUT_SIZE = config["model"]["patchtst"]["input_size"]
@@ -152,7 +158,13 @@ def train_patchtst(train_df, test_df, config):
             n_heads=config["model"]["patchtst"]['n_heads'],
             batch_size=config["model"]["patchtst"]["batch_size"],
             stride =config["model"]["patchtst"]["stride"],
+            hidden_size=config["model"]["patchtst"]["hidden_size"],
+            linear_hidden_size=config["model"]["patchtst"]["linear_hidden_size"],
             patch_len =config["model"]["patchtst"]["patch_len"],
+            fc_dropout=config["model"]["patchtst"]["fc_dropout"],
+            attn_dropout=config["model"]["patchtst"]["attn_dropout"],
+            dropout=config["model"]["patchtst"]["dropout"],
+            encoder_layers=config["model"]["patchtst"]["encoder_layers"],
             learning_rate=float(config["model"]["patchtst"]["lr"]),
             scaler_type=config["model"]["patchtst"]["scaler_type"],
             revin = config["model"]["patchtst"]["revin"],
@@ -160,7 +172,7 @@ def train_patchtst(train_df, test_df, config):
             loss=DistributionLoss(distribution='StudentT', level=[80, 90]),
             )]
         nf = NeuralForecast(models=models, freq=config["data"]["freq"])
-        mlflow.log_params(models[0].__dict__)
+
         logger.info("Training PatchTST model...")
         # Đảm bảo dataframe có đầy đủ các cột cần thiết: unique_id, ds, y, và hist_exog_list
         
@@ -168,23 +180,15 @@ def train_patchtst(train_df, test_df, config):
         nf.fit(train_df[required_columns])
 
         # Log số lượng tham số
-        nbeatsx_model = nf.models[0]
-        n_params = count_parameters(nbeatsx_model)
+        patchtst_model = nf.models[0]
+        n_params = count_parameters(patchtst_model)
         logger.info(f"Model has {n_params:,} trainable parameters")
         mlflow.log_metric("n_parameters", n_params)
         # Forecast and evaluate
-        logger.info("Forecasting with PatchTST model...")
-        # Đối với các mô hình có biến ngoại sinh, chúng ta cần cung cấp giá trị tương lai của các biến đó.
-        # test_df chứa các giá trị tương lai này.
-        forecast = nf.predict(futr_df=test_df).reset_index()
-
-        y_true = test_df["y"].values[:len(forecast)]
-        y_pred = forecast["PatchTST-median"].values
-        score = mape(y_true, y_pred)
-        logger.info(f"Test MAPE for PatchTST: {score:.2f}")
-        mlflow.log_metric("MAPE", score)
-        mlflow.pytorch.log_model(models.models[0], "model")
+        
+        # Create and log input example for the model signature
+    
 
         nf.save("experiments/models/patchtst_model", overwrite=True)
         mlflow.log_artifact("experiments/models/patchtst_model")
-    return nf, n_params, score 
+    return nf, n_params

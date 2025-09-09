@@ -52,10 +52,12 @@ def run_pipeline():
         # 4. Split train/test
         logger.info("Splitting data into train and test sets...")
         split_ratio = config["data"]["split_ratio"]
-        split_point = int(len(df) * split_ratio)
-        train_df = df.iloc[:split_point]
-        test_df = df.iloc[split_point:]
+        split_date = df['ds'].unique()[int(len(df['ds'].unique()) * split_ratio)]
+        train_df = df[df['ds'] <= split_date]
+        test_df = df[df['ds'] > split_date]
         logger.info(f"Train set size: {len(train_df)}, Test set size: {len(test_df)}")
+        train_df.to_parquet("data/processed/train_data.parquet", index=False)
+        test_df.to_parquet("data/processed/test_data.parquet", index=False)
 
         # 5. Train model
         logger.info("Training NBEATSx model...")
