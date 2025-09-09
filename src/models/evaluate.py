@@ -40,8 +40,24 @@ def perform_rolling_forecast(nf: NeuralForecast, history_df: pd.DataFrame, futur
         actuals_for_step = future_df.iloc[i: i + h]
         if actuals_for_step.empty:
             break
+
+        # For models with exogenous variables, futr_df needs to contain their future values.
+        # For models without, it just needs `unique_id` and `ds`.
+        # `actuals_for_step` contains all necessary columns.
+        forecast = nf.predict(futr_df=actuals_for_step)
+        if forecast.empty:
+            if not silent:
+                print(f"Warning: Prediction for step starting at {actuals_for_step['ds'].min()} returned empty. Stopping.")
+            break
+        all_forecasts.append(forecast)
+
         history_df = pd.concat([history_df, actuals_for_step])
         print(f'Progress: {i}/{len(future_df)}')
+        if not silent:
+            print(f'Progress: {i+h}/{len(future_df)}')
+
+    if not all_forecasts:
+        return pd.DataFrame()
     return pd.concat(all_forecasts).reset_index()
 
 

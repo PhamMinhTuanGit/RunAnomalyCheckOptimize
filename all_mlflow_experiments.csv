@@ -1,0 +1,625 @@
+run_id,experiment_id,status,artifact_uri,start_time,end_time,metrics.n_parameters,metrics.rolling_forecast_mae,metrics.rolling_forecast_mse,metrics.rolling_forecast_smape,metrics.MAPE,params.h,params.max_steps,params.input_size,params.early_stop_patience_steps,params.lr,params.mlp_units,params.batch_size,params.n_blocks,params.linear_hidden_size,params.scaler_type,params.dropout,params.n_heads,params.stride,params.revin,params.patch_len,params.attn_dropout,params.encoder_layers,params.fc_dropout,params.hidden_size,params.futr_exog_list,params.valid_batch_size,params.train_trajectories,params.validation_step_outputs,params.hist_exog_size,params._load_state_dict_pre_hooks,params.optimizer_kwargs,params.windows_batch_size,params.start_padding_enabled,params._backward_hooks,params.inference_windows_batch_size,params._forward_hooks,params.drop_last_loader,params.prepare_data_per_node,params.n_series,params.stat_exog_list,params.dataloader_kwargs,params.valid_trajectories,params.random_seed,params.allow_zero_length_dataloader_with_multiple_devices,params._automatic_optimization,params._state_dict_pre_hooks,params._load_state_dict_post_hooks,params.decompose_forecast,params._current_fx_name,params._log_hyperparams,params._example_input_array,params.test_size,params._compiler_ctx,params.val_check_steps,params.hist_exog_list,params._metric_attributes,params._device_mesh,params.futr_exog_size,params._state_dict_hooks,params._hparams_name,params._is_full_backward_hook,params.step_size,params._param_requires_grad_state,params._forward_hooks_always_called,params.num_lr_decays,params.lr_scheduler,params._dtype,params._trainer,params._hparams_initial,params.trainer_kwargs,params._parameters,params.stat_exog_size,params.horizon_backup,params.input_size_backup,params._forward_pre_hooks_with_kwargs,params._hparams,params._device,params.n_samples,params._backward_pre_hooks,params._non_persistent_buffers_set,params.lr_decay_steps,params.exclude_insample_y,params._buffers,params.optimizer,params.lr_scheduler_kwargs,params.alias,params._fabric_optimizers,params._strict_loading,params._forward_pre_hooks,params.learning_rate,params._fabric,params._forward_hooks_with_kwargs,params.val_size,params.training,params._modules,tags.mlflow.runName,tags.mlflow.parentRunId,tags.mlflow.source.type,tags.mlflow.user,tags.mlflow.source.git.commit,tags.mlflow.source.name
+d094c7a106d0406c9c5fb54c08e976b4,580134643936003643,FINISHED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/580134643936003643/d094c7a106d0406c9c5fb54c08e976b4/artifacts,2025-09-09 04:55:55.488000+00:00,2025-09-09 04:56:02.489000+00:00,5143044.0,,,,,12,100,72,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,run,9ac589070ebc40c4a0cc68ae94509bcc,LOCAL,phamminhtuan,844faed9652a03bd47233e9f5f461c3188442b0b,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_nhits_pipeline.py
+9ac589070ebc40c4a0cc68ae94509bcc,580134643936003643,FINISHED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/580134643936003643/9ac589070ebc40c4a0cc68ae94509bcc/artifacts,2025-09-09 04:55:55.471000+00:00,2025-09-09 05:00:08.402000+00:00,5143044.0,34.74571990966797,2469.61669921875,0.19407890737056732,,12,100,72,-1,1e-3,"[[512, 512], [512, 512], [512, 512]]",32,"[2, 2, 2]",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,run,,LOCAL,phamminhtuan,844faed9652a03bd47233e9f5f461c3188442b0b,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_nhits_pipeline.py
+5619e064138240f79deb183013cd1826,580134643936003643,FINISHED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/580134643936003643/5619e064138240f79deb183013cd1826/artifacts,2025-09-09 04:54:14.488000+00:00,2025-09-09 04:54:20.158000+00:00,5143044.0,,,,,12,100,72,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 2,327317120817403ba2b9880cacd166d7,LOCAL,phamminhtuan,844faed9652a03bd47233e9f5f461c3188442b0b,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_nhits_pipeline.py
+327317120817403ba2b9880cacd166d7,580134643936003643,FAILED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/580134643936003643/327317120817403ba2b9880cacd166d7/artifacts,2025-09-09 04:54:14.471000+00:00,2025-09-09 04:54:31.034000+00:00,5143044.0,,,,,12,100,72,-1,1e-3,"[[512, 512], [512, 512], [512, 512]]",32,"[2, 2, 2]",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 2,,LOCAL,phamminhtuan,844faed9652a03bd47233e9f5f461c3188442b0b,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_nhits_pipeline.py
+9e083dcb284f486ead6586e4dd700d6b,580134643936003643,FAILED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/580134643936003643/9e083dcb284f486ead6586e4dd700d6b/artifacts,2025-09-09 04:53:48.525000+00:00,2025-09-09 04:53:54.391000+00:00,5143044.0,,,,,12,100,72,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 2,3704e12a941d4209ae6887343486fb8c,LOCAL,phamminhtuan,844faed9652a03bd47233e9f5f461c3188442b0b,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_nhits_pipeline.py
+3704e12a941d4209ae6887343486fb8c,580134643936003643,FAILED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/580134643936003643/3704e12a941d4209ae6887343486fb8c/artifacts,2025-09-09 04:53:48.507000+00:00,2025-09-09 04:53:54.391000+00:00,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 2,,LOCAL,phamminhtuan,844faed9652a03bd47233e9f5f461c3188442b0b,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_nhits_pipeline.py
+2371cad71db74d4ca4817cce17425505,580134643936003643,FAILED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/580134643936003643/2371cad71db74d4ca4817cce17425505/artifacts,2025-09-09 04:53:07.358000+00:00,2025-09-09 04:53:07.399000+00:00,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 2,,LOCAL,phamminhtuan,844faed9652a03bd47233e9f5f461c3188442b0b,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_nhits_pipeline.py
+81808116bd1c4c7983fd16ef40e4a6e3,769503152781081453,FINISHED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/81808116bd1c4c7983fd16ef40e4a6e3/artifacts,2025-09-09 04:06:24.281000+00:00,2025-09-09 04:07:56.354000+00:00,3206948.0,,,,,12,500,72,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 2,0222db8140834d3c9e2dcb2f9912e10c,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+0222db8140834d3c9e2dcb2f9912e10c,769503152781081453,FINISHED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/0222db8140834d3c9e2dcb2f9912e10c/artifacts,2025-09-09 04:06:24.265000+00:00,2025-09-09 04:12:24.901000+00:00,3206948.0,21.21462631225586,977.8046875,0.15117034316062927,,12,500,72,-1,1e-4,,32,,512,robust,0.2,16,24,False,24,0.1,6,0.2,256,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 2,,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+bb83fbc65d5e4c3c8fd6e6253ae63269,769503152781081453,FINISHED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/bb83fbc65d5e4c3c8fd6e6253ae63269/artifacts,2025-09-09 04:01:53.563000+00:00,2025-09-09 04:02:30.880000+00:00,3206948.0,,,,,12,200,72,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 2,84afa83804ba4efda9426041841bd8a4,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+84afa83804ba4efda9426041841bd8a4,769503152781081453,FAILED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/84afa83804ba4efda9426041841bd8a4/artifacts,2025-09-09 04:01:53.547000+00:00,2025-09-09 04:02:43.539000+00:00,3206948.0,,,,,12,200,72,-1,1e-4,,32,,512,robust,0.2,16,24,False,24,0.1,6,0.2,256,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 2,,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+4a436c295f4f452fbfdd49283cd87c88,769503152781081453,FAILED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/4a436c295f4f452fbfdd49283cd87c88/artifacts,2025-09-09 04:00:11.042000+00:00,2025-09-09 04:00:29.780000+00:00,,,,,,12,200,72,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 2,dcef60ba91214f3f986ba230b1805930,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+dcef60ba91214f3f986ba230b1805930,769503152781081453,FAILED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/dcef60ba91214f3f986ba230b1805930/artifacts,2025-09-09 04:00:11.006000+00:00,2025-09-09 04:00:29.782000+00:00,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 2,,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+4a11bd9fb50e4bf39b60645d71895311,769503152781081453,FINISHED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/4a11bd9fb50e4bf39b60645d71895311/artifacts,2025-09-09 03:47:20.089000+00:00,2025-09-09 03:47:40.803000+00:00,1625636.0,,,,,12,200,72,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 2,eda5ebaca1be42ba9992f8688c733e33,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+eda5ebaca1be42ba9992f8688c733e33,769503152781081453,FINISHED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/eda5ebaca1be42ba9992f8688c733e33/artifacts,2025-09-09 03:47:20.074000+00:00,2025-09-09 03:51:12.350000+00:00,1625636.0,21.844385147094727,1045.801025390625,0.12604019045829773,,12,200,72,-1,1e-3,,32,,512,robust,,8,24,False,24,,,,256,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 2,,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+f742f64b0bbc4e52a6dd86d97dc483fb,769503152781081453,FINISHED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/f742f64b0bbc4e52a6dd86d97dc483fb/artifacts,2025-09-09 02:17:30.980000+00:00,2025-09-09 02:17:39.126000+00:00,419620.0,,,,,12,100,72,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 1,fa38a8e7755243b9a2937b5d9c140574,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+fa38a8e7755243b9a2937b5d9c140574,769503152781081453,FINISHED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/fa38a8e7755243b9a2937b5d9c140574/artifacts,2025-09-09 02:17:30.963000+00:00,2025-09-09 02:21:06.936000+00:00,419620.0,22.512548446655273,1138.562744140625,0.13630272448062897,,12,100,72,-1,1e-3,,32,,,robust,,8,24,False,24,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 1,,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+a352337ab643428ab461f5fb33089c97,769503152781081453,FINISHED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/a352337ab643428ab461f5fb33089c97/artifacts,2025-09-09 02:05:48.425000+00:00,2025-09-09 02:05:54.861000+00:00,419620.0,,,,,12,100,72,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 1,8c400486efc2446e9218d04ba62c6a61,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+8c400486efc2446e9218d04ba62c6a61,769503152781081453,FINISHED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/8c400486efc2446e9218d04ba62c6a61/artifacts,2025-09-09 02:05:48.408000+00:00,2025-09-09 02:09:19.902000+00:00,419620.0,22.512548446655273,1138.562744140625,0.13630272448062897,,12,100,72,-1,1e-3,,32,,,robust,,8,24,False,24,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 1,,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+7d564bbe6b9d4273b58f41ada4fd3b7a,769503152781081453,FINISHED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/7d564bbe6b9d4273b58f41ada4fd3b7a/artifacts,2025-09-09 02:00:41.780000+00:00,2025-09-09 02:00:48.181000+00:00,419620.0,,,,,12,100,72,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 1,017eabb7ec754efa963a7260c5046550,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+017eabb7ec754efa963a7260c5046550,769503152781081453,FAILED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/017eabb7ec754efa963a7260c5046550/artifacts,2025-09-09 02:00:41.765000+00:00,2025-09-09 02:04:05.133000+00:00,419620.0,,,,,12,100,72,-1,1e-3,,32,,,robust,,8,24,False,24,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 1,,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+74497e5a8edb48aebd5ca5e470be84db,769503152781081453,FINISHED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/74497e5a8edb48aebd5ca5e470be84db/artifacts,2025-09-09 01:58:19.231000+00:00,2025-09-09 01:58:25.614000+00:00,419620.0,,,,,12,100,72,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 1,9feb510330284ea1a8ffb57c9342efc6,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+9feb510330284ea1a8ffb57c9342efc6,769503152781081453,FAILED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/9feb510330284ea1a8ffb57c9342efc6/artifacts,2025-09-09 01:58:19.216000+00:00,2025-09-09 01:58:38.469000+00:00,419620.0,,,,,12,100,72,-1,1e-3,,32,,,robust,,8,24,False,24,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 1,,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+c2c70a1e5dbc45fca80831867d38865c,769503152781081453,FINISHED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/c2c70a1e5dbc45fca80831867d38865c/artifacts,2025-09-09 01:52:31.650000+00:00,2025-09-09 01:52:38.039000+00:00,419620.0,,,,,12,100,72,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 1,7b606dcb651643c584d5ceecb157bf13,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+7b606dcb651643c584d5ceecb157bf13,769503152781081453,FAILED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/7b606dcb651643c584d5ceecb157bf13/artifacts,2025-09-09 01:52:31.634000+00:00,2025-09-09 01:52:48.826000+00:00,419620.0,,,,,12,100,72,-1,1e-3,,32,,,robust,,8,24,False,24,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 1,,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+e04d87000601438ea114825d3be0a29f,769503152781081453,FAILED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/e04d87000601438ea114825d3be0a29f/artifacts,2025-09-09 01:50:29.662000+00:00,2025-09-09 01:50:36.421000+00:00,419620.0,,,,,12,100,72,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 1,f1bc4a86ba2a41eaae8ca6ad19f737dc,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+f1bc4a86ba2a41eaae8ca6ad19f737dc,769503152781081453,FAILED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/f1bc4a86ba2a41eaae8ca6ad19f737dc/artifacts,2025-09-09 01:50:29.646000+00:00,2025-09-09 01:50:36.421000+00:00,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 1,,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+7ca6d7d40cdb47e4966fcb72a422423d,769503152781081453,FAILED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/7ca6d7d40cdb47e4966fcb72a422423d/artifacts,2025-09-09 01:44:38.251000+00:00,2025-09-09 01:44:44.636000+00:00,419620.0,,,,,12,100,72,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 1,8d3067e16db44ac7bd53436a43d9d7b8,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+8d3067e16db44ac7bd53436a43d9d7b8,769503152781081453,FAILED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/8d3067e16db44ac7bd53436a43d9d7b8/artifacts,2025-09-09 01:44:38.234000+00:00,2025-09-09 01:44:44.637000+00:00,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 1,,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+3d25f29f51384bcf9b173477fcd2a07f,769503152781081453,FAILED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/3d25f29f51384bcf9b173477fcd2a07f/artifacts,2025-09-09 01:41:15.668000+00:00,2025-09-09 01:41:21.973000+00:00,419620.0,,,,,12,100,72,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 1,4b1374699c514bb5b07a4b8c0f8723cd,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+4b1374699c514bb5b07a4b8c0f8723cd,769503152781081453,FAILED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/4b1374699c514bb5b07a4b8c0f8723cd/artifacts,2025-09-09 01:41:15.648000+00:00,2025-09-09 01:41:21.973000+00:00,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 1,,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+2ce55471b4944331942f0697e0044566,769503152781081453,FAILED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/2ce55471b4944331942f0697e0044566/artifacts,2025-09-09 01:38:19.763000+00:00,2025-09-09 01:38:26.088000+00:00,419620.0,,,,,12,100,72,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 1,ca459acc3ed54cf79edcae724766d3eb,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+ca459acc3ed54cf79edcae724766d3eb,769503152781081453,FAILED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/ca459acc3ed54cf79edcae724766d3eb/artifacts,2025-09-09 01:38:19.747000+00:00,2025-09-09 01:38:26.088000+00:00,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 1,,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+dbd5bde9df0b4ceeb530d9bf0eb6e724,769503152781081453,FAILED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/dbd5bde9df0b4ceeb530d9bf0eb6e724/artifacts,2025-09-09 01:37:26.554000+00:00,2025-09-09 01:37:26.567000+00:00,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 1,,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+067238406e0a4f10ac2426e022d90fa6,769503152781081453,FAILED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/067238406e0a4f10ac2426e022d90fa6/artifacts,2025-09-09 01:37:03.055000+00:00,2025-09-09 01:37:03.070000+00:00,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 1,,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+47cda28f78b54d33995a020b98de14ae,769503152781081453,FAILED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/47cda28f78b54d33995a020b98de14ae/artifacts,2025-09-09 01:33:26.377000+00:00,2025-09-09 01:33:26.406000+00:00,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 1,,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+030959026ae74672bc215767fe83c89c,769503152781081453,FINISHED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/030959026ae74672bc215767fe83c89c/artifacts,2025-09-09 01:24:05.227000+00:00,2025-09-09 01:24:16.398000+00:00,419620.0,,,,3.5010613165779088,12,100,72,-1,,,32,,,,,,,,,,,,,[],32,[],[],0,OrderedDict(),{},1024,False,OrderedDict(),1024,OrderedDict(),False,True,1,[],None,[],1,False,True,OrderedDict(),OrderedDict(),False,None,True,None,0,None,100,[],None,None,0,OrderedDict(),kwargs,None,1,{},OrderedDict(),-1,None,torch.float32,None,"""activation"":                   gelu
+""alias"":                        None
+""attn_dropout"":                 0.0
+""batch_normalization"":          False
+""batch_size"":                   32
+""dataloader_kwargs"":            None
+""drop_last_loader"":             False
+""dropout"":                      0.2
+""early_stop_patience_steps"":    -1
+""encoder_layers"":               3
+""exclude_insample_y"":           False
+""fc_dropout"":                   0.2
+""futr_exog_list"":               None
+""h"":                            12
+""h_train"":                      1
+""head_dropout"":                 0.0
+""hidden_size"":                  128
+""hist_exog_list"":               None
+""inference_input_size"":         72
+""inference_windows_batch_size"": 1024
+""input_size"":                   72
+""learn_pos_embed"":              True
+""learning_rate"":                0.001
+""linear_hidden_size"":           256
+""loss"":                         DistributionLoss()
+""lr_scheduler"":                 None
+""lr_scheduler_kwargs"":          None
+""max_steps"":                    100
+""n_heads"":                      8
+""n_samples"":                    100
+""n_series"":                     1
+""num_lr_decays"":                -1
+""optimizer"":                    None
+""optimizer_kwargs"":             None
+""patch_len"":                    24
+""random_seed"":                  1
+""res_attention"":                True
+""revin"":                        False
+""revin_affine"":                 False
+""revin_subtract_last"":          True
+""scaler_type"":                  robust
+""start_padding_enabled"":        False
+""stat_exog_list"":               None
+""step_size"":                    1
+""stride"":                       24
+""val_check_steps"":              100
+""valid_batch_size"":             None
+""valid_loss"":                   None
+""windows_batch_size"":           1024","{'max_steps': 100, 'enable_checkpointing': False}",{},0,12,72,OrderedDict(),"""activation"":                   gelu
+""alias"":                        None
+""attn_dropout"":                 0.0
+""batch_normalization"":          False
+""batch_size"":                   32
+""dataloader_kwargs"":            None
+""drop_last_loader"":             False
+""dropout"":                      0.2
+""early_stop_patience_steps"":    -1
+""encoder_layers"":               3
+""exclude_insample_y"":           False
+""fc_dropout"":                   0.2
+""futr_exog_list"":               None
+""h"":                            12
+""h_train"":                      1
+""head_dropout"":                 0.0
+""hidden_size"":                  128
+""hist_exog_list"":               None
+""inference_input_size"":         72
+""inference_windows_batch_size"": 1024
+""input_size"":                   72
+""learn_pos_embed"":              True
+""learning_rate"":                0.001
+""linear_hidden_size"":           256
+""loss"":                         DistributionLoss()
+""lr_scheduler"":                 None
+""lr_scheduler_kwargs"":          None
+""max_steps"":                    100
+""n_heads"":                      8
+""n_samples"":                    100
+""n_series"":                     1
+""num_lr_decays"":                -1
+""optimizer"":                    None
+""optimizer_kwargs"":             None
+""patch_len"":                    24
+""random_seed"":                  1
+""res_attention"":                True
+""revin"":                        False
+""revin_affine"":                 False
+""revin_subtract_last"":          True
+""scaler_type"":                  robust
+""start_padding_enabled"":        False
+""stat_exog_list"":               None
+""step_size"":                    1
+""stride"":                       24
+""val_check_steps"":              100
+""valid_batch_size"":             None
+""valid_loss"":                   None
+""windows_batch_size"":           1024",cpu,100,OrderedDict(),set(),100000000.0,False,{},None,{},None,[],None,OrderedDict(),0.001,None,OrderedDict(),0,True,"{'loss': DistributionLoss(), 'valid_loss': DistributionLoss(), 'padder_train': ConstantPad1d(padding=(0, 12), value=0.0), 'scaler': TemporalNorm(), 'model': PatchTST_backbone(
+  (padding_patch_layer): ReplicationPad1d((0, 24))
+  (backbone): TSTiEncoder(
+    (W_P): Linear(in_features=24, out_features=128, bias=True)
+    (dropout): Dropout(p=0.2, inplace=False)
+    (encoder): TSTEncoder(
+      (layers): ModuleList(
+        (0-2): 3 x TSTEncoderLayer(
+          (self_attn): _MultiheadAttention(
+            (W_Q): Linear(in_features=128, out_features=128, bias=True)
+            (W_K): Linear(in_features=128, out_features=128, bias=True)
+            (W_V): Linear(in_features=128, out_features=128, bias=True)
+            (sdp_attn): _ScaledDotProductAttention(
+              (attn_dropout): Dropout(p=0.0, inplace=False)
+            )
+            (to_out): Sequential(
+              (0): Linear(in_features=128, out_features=128, bias=True)
+              (1): Dropout(p=0.2, inplace=False)
+            )
+          )
+          (dropout_attn): Dropout(p=0.2, inplace=False)
+          (norm_attn): Sequential(
+            (0): Transpose()
+            (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (2): Transpose()
+          )
+          (ff): Sequential(
+            (0): Linear(in_features=128, out_features=256, bias=True)
+            (1): GELU(approximate='none')
+            (2): Dropout(p=0.2, inplace=False)
+            (3): Linear(in_features=256, out_features=128, bias=True)
+          )
+          (dropout_ffn): Dropout(p=0.2, inplace=False)
+          (norm_ffn): Sequential(
+            (0): Transpose()
+            (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (2): Transpose()
+          )
+        )
+      )
+    )
+  )
+  (head): Flatten_Head(
+    (flatten): Flatten(start_dim=-2, end_dim=-1)
+    (linear): Linear(in_features=512, out_features=36, bias=True)
+    (dropout): Dropout(p=0.0, inplace=False)
+  )
+)}",PatchTST run 1,44d9fc92998b410eb69b9befb07d3759,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+44d9fc92998b410eb69b9befb07d3759,769503152781081453,FINISHED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/44d9fc92998b410eb69b9befb07d3759/artifacts,2025-09-09 01:24:05.180000+00:00,2025-09-09 01:24:27.969000+00:00,419620.0,18.624006271362305,704.4190063476562,0.12351660430431366,3.5010613165779088,12,100,72,-1,1e-3,,32,,,robust,,8,24,False,24,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 1,,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+893dc11f48514e75933fa97d7bd1d074,769503152781081453,FAILED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/893dc11f48514e75933fa97d7bd1d074/artifacts,2025-09-09 01:22:51.787000+00:00,2025-09-09 01:22:59.669000+00:00,419620.0,,,,3.6355971415352295,12,100,72,-1,,,32,,,,,,,,,,,,,[],32,[],[],0,OrderedDict(),{},1024,False,OrderedDict(),1024,OrderedDict(),False,True,1,[],None,[],1,False,True,OrderedDict(),OrderedDict(),False,None,True,None,0,None,100,[],None,None,0,OrderedDict(),kwargs,None,1,{},OrderedDict(),-1,None,torch.float32,None,"""activation"":                   gelu
+""alias"":                        None
+""attn_dropout"":                 0.0
+""batch_normalization"":          False
+""batch_size"":                   32
+""dataloader_kwargs"":            None
+""drop_last_loader"":             False
+""dropout"":                      0.2
+""early_stop_patience_steps"":    -1
+""encoder_layers"":               3
+""exclude_insample_y"":           False
+""fc_dropout"":                   0.2
+""futr_exog_list"":               None
+""h"":                            12
+""h_train"":                      1
+""head_dropout"":                 0.0
+""hidden_size"":                  128
+""hist_exog_list"":               None
+""inference_input_size"":         72
+""inference_windows_batch_size"": 1024
+""input_size"":                   72
+""learn_pos_embed"":              True
+""learning_rate"":                0.001
+""linear_hidden_size"":           256
+""loss"":                         DistributionLoss()
+""lr_scheduler"":                 None
+""lr_scheduler_kwargs"":          None
+""max_steps"":                    100
+""n_heads"":                      8
+""n_samples"":                    100
+""n_series"":                     1
+""num_lr_decays"":                -1
+""optimizer"":                    None
+""optimizer_kwargs"":             None
+""patch_len"":                    24
+""random_seed"":                  1
+""res_attention"":                True
+""revin"":                        False
+""revin_affine"":                 False
+""revin_subtract_last"":          True
+""scaler_type"":                  robust
+""start_padding_enabled"":        False
+""stat_exog_list"":               None
+""step_size"":                    1
+""stride"":                       24
+""val_check_steps"":              100
+""valid_batch_size"":             None
+""valid_loss"":                   None
+""windows_batch_size"":           1024","{'max_steps': 100, 'enable_checkpointing': False}",{},0,12,72,OrderedDict(),"""activation"":                   gelu
+""alias"":                        None
+""attn_dropout"":                 0.0
+""batch_normalization"":          False
+""batch_size"":                   32
+""dataloader_kwargs"":            None
+""drop_last_loader"":             False
+""dropout"":                      0.2
+""early_stop_patience_steps"":    -1
+""encoder_layers"":               3
+""exclude_insample_y"":           False
+""fc_dropout"":                   0.2
+""futr_exog_list"":               None
+""h"":                            12
+""h_train"":                      1
+""head_dropout"":                 0.0
+""hidden_size"":                  128
+""hist_exog_list"":               None
+""inference_input_size"":         72
+""inference_windows_batch_size"": 1024
+""input_size"":                   72
+""learn_pos_embed"":              True
+""learning_rate"":                0.001
+""linear_hidden_size"":           256
+""loss"":                         DistributionLoss()
+""lr_scheduler"":                 None
+""lr_scheduler_kwargs"":          None
+""max_steps"":                    100
+""n_heads"":                      8
+""n_samples"":                    100
+""n_series"":                     1
+""num_lr_decays"":                -1
+""optimizer"":                    None
+""optimizer_kwargs"":             None
+""patch_len"":                    24
+""random_seed"":                  1
+""res_attention"":                True
+""revin"":                        False
+""revin_affine"":                 False
+""revin_subtract_last"":          True
+""scaler_type"":                  robust
+""start_padding_enabled"":        False
+""stat_exog_list"":               None
+""step_size"":                    1
+""stride"":                       24
+""val_check_steps"":              100
+""valid_batch_size"":             None
+""valid_loss"":                   None
+""windows_batch_size"":           1024",cpu,100,OrderedDict(),set(),100000000.0,False,{},None,{},None,[],None,OrderedDict(),0.001,None,OrderedDict(),0,True,"{'loss': DistributionLoss(), 'valid_loss': DistributionLoss(), 'padder_train': ConstantPad1d(padding=(0, 12), value=0.0), 'scaler': TemporalNorm(), 'model': PatchTST_backbone(
+  (padding_patch_layer): ReplicationPad1d((0, 24))
+  (backbone): TSTiEncoder(
+    (W_P): Linear(in_features=24, out_features=128, bias=True)
+    (dropout): Dropout(p=0.2, inplace=False)
+    (encoder): TSTEncoder(
+      (layers): ModuleList(
+        (0-2): 3 x TSTEncoderLayer(
+          (self_attn): _MultiheadAttention(
+            (W_Q): Linear(in_features=128, out_features=128, bias=True)
+            (W_K): Linear(in_features=128, out_features=128, bias=True)
+            (W_V): Linear(in_features=128, out_features=128, bias=True)
+            (sdp_attn): _ScaledDotProductAttention(
+              (attn_dropout): Dropout(p=0.0, inplace=False)
+            )
+            (to_out): Sequential(
+              (0): Linear(in_features=128, out_features=128, bias=True)
+              (1): Dropout(p=0.2, inplace=False)
+            )
+          )
+          (dropout_attn): Dropout(p=0.2, inplace=False)
+          (norm_attn): Sequential(
+            (0): Transpose()
+            (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (2): Transpose()
+          )
+          (ff): Sequential(
+            (0): Linear(in_features=128, out_features=256, bias=True)
+            (1): GELU(approximate='none')
+            (2): Dropout(p=0.2, inplace=False)
+            (3): Linear(in_features=256, out_features=128, bias=True)
+          )
+          (dropout_ffn): Dropout(p=0.2, inplace=False)
+          (norm_ffn): Sequential(
+            (0): Transpose()
+            (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (2): Transpose()
+          )
+        )
+      )
+    )
+  )
+  (head): Flatten_Head(
+    (flatten): Flatten(start_dim=-2, end_dim=-1)
+    (linear): Linear(in_features=512, out_features=36, bias=True)
+    (dropout): Dropout(p=0.0, inplace=False)
+  )
+)}",PatchTST run 1,885cf3d799d2473ea36f688022d17450,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+885cf3d799d2473ea36f688022d17450,769503152781081453,FAILED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/885cf3d799d2473ea36f688022d17450/artifacts,2025-09-09 01:22:51.742000+00:00,2025-09-09 01:22:59.669000+00:00,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 1,,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+2f8e95dcc66b401a88a9742753f6f9c2,769503152781081453,FAILED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/2f8e95dcc66b401a88a9742753f6f9c2/artifacts,2025-09-09 01:20:03.645000+00:00,2025-09-09 01:20:12.649000+00:00,419620.0,,,,,12,100,72,-1,,,32,,,,,,,,,,,,,[],32,[],[],0,OrderedDict(),{},1024,False,OrderedDict(),1024,OrderedDict(),False,True,1,[],None,[],1,False,True,OrderedDict(),OrderedDict(),False,None,True,None,0,None,100,[],None,None,0,OrderedDict(),kwargs,None,1,{},OrderedDict(),-1,None,torch.float32,None,"""activation"":                   gelu
+""alias"":                        None
+""attn_dropout"":                 0.0
+""batch_normalization"":          False
+""batch_size"":                   32
+""dataloader_kwargs"":            None
+""drop_last_loader"":             False
+""dropout"":                      0.2
+""early_stop_patience_steps"":    -1
+""encoder_layers"":               3
+""exclude_insample_y"":           False
+""fc_dropout"":                   0.2
+""futr_exog_list"":               None
+""h"":                            12
+""h_train"":                      1
+""head_dropout"":                 0.0
+""hidden_size"":                  128
+""hist_exog_list"":               None
+""inference_input_size"":         72
+""inference_windows_batch_size"": 1024
+""input_size"":                   72
+""learn_pos_embed"":              True
+""learning_rate"":                0.001
+""linear_hidden_size"":           256
+""loss"":                         DistributionLoss()
+""lr_scheduler"":                 None
+""lr_scheduler_kwargs"":          None
+""max_steps"":                    100
+""n_heads"":                      8
+""n_samples"":                    100
+""n_series"":                     1
+""num_lr_decays"":                -1
+""optimizer"":                    None
+""optimizer_kwargs"":             None
+""patch_len"":                    24
+""random_seed"":                  1
+""res_attention"":                True
+""revin"":                        False
+""revin_affine"":                 False
+""revin_subtract_last"":          True
+""scaler_type"":                  robust
+""start_padding_enabled"":        False
+""stat_exog_list"":               None
+""step_size"":                    1
+""stride"":                       24
+""val_check_steps"":              100
+""valid_batch_size"":             None
+""valid_loss"":                   None
+""windows_batch_size"":           1024","{'max_steps': 100, 'enable_checkpointing': False}",{},0,12,72,OrderedDict(),"""activation"":                   gelu
+""alias"":                        None
+""attn_dropout"":                 0.0
+""batch_normalization"":          False
+""batch_size"":                   32
+""dataloader_kwargs"":            None
+""drop_last_loader"":             False
+""dropout"":                      0.2
+""early_stop_patience_steps"":    -1
+""encoder_layers"":               3
+""exclude_insample_y"":           False
+""fc_dropout"":                   0.2
+""futr_exog_list"":               None
+""h"":                            12
+""h_train"":                      1
+""head_dropout"":                 0.0
+""hidden_size"":                  128
+""hist_exog_list"":               None
+""inference_input_size"":         72
+""inference_windows_batch_size"": 1024
+""input_size"":                   72
+""learn_pos_embed"":              True
+""learning_rate"":                0.001
+""linear_hidden_size"":           256
+""loss"":                         DistributionLoss()
+""lr_scheduler"":                 None
+""lr_scheduler_kwargs"":          None
+""max_steps"":                    100
+""n_heads"":                      8
+""n_samples"":                    100
+""n_series"":                     1
+""num_lr_decays"":                -1
+""optimizer"":                    None
+""optimizer_kwargs"":             None
+""patch_len"":                    24
+""random_seed"":                  1
+""res_attention"":                True
+""revin"":                        False
+""revin_affine"":                 False
+""revin_subtract_last"":          True
+""scaler_type"":                  robust
+""start_padding_enabled"":        False
+""stat_exog_list"":               None
+""step_size"":                    1
+""stride"":                       24
+""val_check_steps"":              100
+""valid_batch_size"":             None
+""valid_loss"":                   None
+""windows_batch_size"":           1024",cpu,100,OrderedDict(),set(),100000000.0,False,{},None,{},None,[],None,OrderedDict(),0.001,None,OrderedDict(),0,True,"{'loss': DistributionLoss(), 'valid_loss': DistributionLoss(), 'padder_train': ConstantPad1d(padding=(0, 12), value=0.0), 'scaler': TemporalNorm(), 'model': PatchTST_backbone(
+  (padding_patch_layer): ReplicationPad1d((0, 24))
+  (backbone): TSTiEncoder(
+    (W_P): Linear(in_features=24, out_features=128, bias=True)
+    (dropout): Dropout(p=0.2, inplace=False)
+    (encoder): TSTEncoder(
+      (layers): ModuleList(
+        (0-2): 3 x TSTEncoderLayer(
+          (self_attn): _MultiheadAttention(
+            (W_Q): Linear(in_features=128, out_features=128, bias=True)
+            (W_K): Linear(in_features=128, out_features=128, bias=True)
+            (W_V): Linear(in_features=128, out_features=128, bias=True)
+            (sdp_attn): _ScaledDotProductAttention(
+              (attn_dropout): Dropout(p=0.0, inplace=False)
+            )
+            (to_out): Sequential(
+              (0): Linear(in_features=128, out_features=128, bias=True)
+              (1): Dropout(p=0.2, inplace=False)
+            )
+          )
+          (dropout_attn): Dropout(p=0.2, inplace=False)
+          (norm_attn): Sequential(
+            (0): Transpose()
+            (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (2): Transpose()
+          )
+          (ff): Sequential(
+            (0): Linear(in_features=128, out_features=256, bias=True)
+            (1): GELU(approximate='none')
+            (2): Dropout(p=0.2, inplace=False)
+            (3): Linear(in_features=256, out_features=128, bias=True)
+          )
+          (dropout_ffn): Dropout(p=0.2, inplace=False)
+          (norm_ffn): Sequential(
+            (0): Transpose()
+            (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (2): Transpose()
+          )
+        )
+      )
+    )
+  )
+  (head): Flatten_Head(
+    (flatten): Flatten(start_dim=-2, end_dim=-1)
+    (linear): Linear(in_features=512, out_features=36, bias=True)
+    (dropout): Dropout(p=0.0, inplace=False)
+  )
+)}",PatchTST run 1,6fd7579333404b3faf9a5fee590bff03,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+6fd7579333404b3faf9a5fee590bff03,769503152781081453,FAILED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/6fd7579333404b3faf9a5fee590bff03/artifacts,2025-09-09 01:20:03.615000+00:00,2025-09-09 01:20:12.649000+00:00,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 1,,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+81e557915fad4f08a7000889dedfdc45,769503152781081453,FAILED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/81e557915fad4f08a7000889dedfdc45/artifacts,2025-09-09 01:19:07.935000+00:00,2025-09-09 01:19:08.482000+00:00,,,,,,12,100,72,-1,,,32,,,,,,,,,,,,,[],32,[],[],0,OrderedDict(),{},1024,False,OrderedDict(),1024,OrderedDict(),False,True,1,[],None,[],1,False,True,OrderedDict(),OrderedDict(),False,None,True,None,0,None,100,[],None,None,0,OrderedDict(),kwargs,None,1,{},OrderedDict(),-1,None,torch.float32,None,"""activation"":                   gelu
+""alias"":                        None
+""attn_dropout"":                 0.0
+""batch_normalization"":          False
+""batch_size"":                   32
+""dataloader_kwargs"":            None
+""drop_last_loader"":             False
+""dropout"":                      0.2
+""early_stop_patience_steps"":    -1
+""encoder_layers"":               3
+""exclude_insample_y"":           False
+""fc_dropout"":                   0.2
+""futr_exog_list"":               None
+""h"":                            12
+""h_train"":                      1
+""head_dropout"":                 0.0
+""hidden_size"":                  128
+""hist_exog_list"":               None
+""inference_input_size"":         72
+""inference_windows_batch_size"": 1024
+""input_size"":                   72
+""learn_pos_embed"":              True
+""learning_rate"":                0.001
+""linear_hidden_size"":           256
+""loss"":                         DistributionLoss()
+""lr_scheduler"":                 None
+""lr_scheduler_kwargs"":          None
+""max_steps"":                    100
+""n_heads"":                      8
+""n_samples"":                    100
+""n_series"":                     1
+""num_lr_decays"":                -1
+""optimizer"":                    None
+""optimizer_kwargs"":             None
+""patch_len"":                    24
+""random_seed"":                  1
+""res_attention"":                True
+""revin"":                        False
+""revin_affine"":                 False
+""revin_subtract_last"":          True
+""scaler_type"":                  robust
+""start_padding_enabled"":        False
+""stat_exog_list"":               None
+""step_size"":                    1
+""stride"":                       24
+""val_check_steps"":              100
+""valid_batch_size"":             None
+""valid_loss"":                   None
+""windows_batch_size"":           1024","{'max_steps': 100, 'enable_checkpointing': False}",{},0,12,72,OrderedDict(),"""activation"":                   gelu
+""alias"":                        None
+""attn_dropout"":                 0.0
+""batch_normalization"":          False
+""batch_size"":                   32
+""dataloader_kwargs"":            None
+""drop_last_loader"":             False
+""dropout"":                      0.2
+""early_stop_patience_steps"":    -1
+""encoder_layers"":               3
+""exclude_insample_y"":           False
+""fc_dropout"":                   0.2
+""futr_exog_list"":               None
+""h"":                            12
+""h_train"":                      1
+""head_dropout"":                 0.0
+""hidden_size"":                  128
+""hist_exog_list"":               None
+""inference_input_size"":         72
+""inference_windows_batch_size"": 1024
+""input_size"":                   72
+""learn_pos_embed"":              True
+""learning_rate"":                0.001
+""linear_hidden_size"":           256
+""loss"":                         DistributionLoss()
+""lr_scheduler"":                 None
+""lr_scheduler_kwargs"":          None
+""max_steps"":                    100
+""n_heads"":                      8
+""n_samples"":                    100
+""n_series"":                     1
+""num_lr_decays"":                -1
+""optimizer"":                    None
+""optimizer_kwargs"":             None
+""patch_len"":                    24
+""random_seed"":                  1
+""res_attention"":                True
+""revin"":                        False
+""revin_affine"":                 False
+""revin_subtract_last"":          True
+""scaler_type"":                  robust
+""start_padding_enabled"":        False
+""stat_exog_list"":               None
+""step_size"":                    1
+""stride"":                       24
+""val_check_steps"":              100
+""valid_batch_size"":             None
+""valid_loss"":                   None
+""windows_batch_size"":           1024",cpu,100,OrderedDict(),set(),100000000.0,False,{},None,{},None,[],None,OrderedDict(),0.001,None,OrderedDict(),0,True,"{'loss': DistributionLoss(), 'valid_loss': DistributionLoss(), 'padder_train': ConstantPad1d(padding=(0, 12), value=0.0), 'scaler': TemporalNorm(), 'model': PatchTST_backbone(
+  (padding_patch_layer): ReplicationPad1d((0, 24))
+  (backbone): TSTiEncoder(
+    (W_P): Linear(in_features=24, out_features=128, bias=True)
+    (dropout): Dropout(p=0.2, inplace=False)
+    (encoder): TSTEncoder(
+      (layers): ModuleList(
+        (0-2): 3 x TSTEncoderLayer(
+          (self_attn): _MultiheadAttention(
+            (W_Q): Linear(in_features=128, out_features=128, bias=True)
+            (W_K): Linear(in_features=128, out_features=128, bias=True)
+            (W_V): Linear(in_features=128, out_features=128, bias=True)
+            (sdp_attn): _ScaledDotProductAttention(
+              (attn_dropout): Dropout(p=0.0, inplace=False)
+            )
+            (to_out): Sequential(
+              (0): Linear(in_features=128, out_features=128, bias=True)
+              (1): Dropout(p=0.2, inplace=False)
+            )
+          )
+          (dropout_attn): Dropout(p=0.2, inplace=False)
+          (norm_attn): Sequential(
+            (0): Transpose()
+            (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (2): Transpose()
+          )
+          (ff): Sequential(
+            (0): Linear(in_features=128, out_features=256, bias=True)
+            (1): GELU(approximate='none')
+            (2): Dropout(p=0.2, inplace=False)
+            (3): Linear(in_features=256, out_features=128, bias=True)
+          )
+          (dropout_ffn): Dropout(p=0.2, inplace=False)
+          (norm_ffn): Sequential(
+            (0): Transpose()
+            (1): BatchNorm1d(128, eps=1e-05, momentum=0.1, affine=True, track_running_stats=True)
+            (2): Transpose()
+          )
+        )
+      )
+    )
+  )
+  (head): Flatten_Head(
+    (flatten): Flatten(start_dim=-2, end_dim=-1)
+    (linear): Linear(in_features=512, out_features=36, bias=True)
+    (dropout): Dropout(p=0.0, inplace=False)
+  )
+)}",PatchTST run 1,851cc3ed58854d0ab464e561dea7843a,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+851cc3ed58854d0ab464e561dea7843a,769503152781081453,FAILED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/769503152781081453/851cc3ed58854d0ab464e561dea7843a/artifacts,2025-09-09 01:19:07.902000+00:00,2025-09-09 01:19:08.483000+00:00,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,PatchTST run 1,,LOCAL,phamminhtuan,013ca0b626690638b5458b04b38a574a00388b8e,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_patchtst_pipeline.py
+7030b362b9e74053bfce717180626cbc,190845828729457433,FINISHED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/190845828729457433/7030b362b9e74053bfce717180626cbc/artifacts,2025-09-03 10:20:49.057000+00:00,2025-09-03 10:29:25.360000+00:00,9350145.0,,,,4163.590454452643,12,100,72,-1,1e-3,"[[512, 512], [512, 512], [512, 512]]",32,"[3, 3, 3]",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"['lag_5min', 'lag_30min', 'rolling_mean', 'rolling_std', 'lag_2h']",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,NHITS_run,,LOCAL,phamminhtuan,fa476ef3421a7918459a24773aa73d0f7bdd7e1c,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_pipeline.py
+a46948135cb643f4a21829d9d45d27a5,190845828729457433,FAILED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/190845828729457433/a46948135cb643f4a21829d9d45d27a5/artifacts,2025-09-03 10:12:14.346000+00:00,2025-09-03 10:18:48.841000+00:00,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,NHITS_run,,LOCAL,phamminhtuan,fa476ef3421a7918459a24773aa73d0f7bdd7e1c,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_pipeline.py
+a268fac0063142319dbb9d33026d376d,190845828729457433,FAILED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/190845828729457433/a268fac0063142319dbb9d33026d376d/artifacts,2025-09-03 10:05:21.020000+00:00,2025-09-03 10:11:48.269000+00:00,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,NHITS_run,,LOCAL,phamminhtuan,fa476ef3421a7918459a24773aa73d0f7bdd7e1c,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_pipeline.py
+1114e99b55fa40a181b7d503d6092e7a,190845828729457433,FAILED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/190845828729457433/1114e99b55fa40a181b7d503d6092e7a/artifacts,2025-09-03 08:56:25.951000+00:00,2025-09-03 09:02:12.219000+00:00,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,NHITS_run,,LOCAL,phamminhtuan,fa476ef3421a7918459a24773aa73d0f7bdd7e1c,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_pipeline.py
+2da08c51f87f4ab4aeebdf2a53c47a44,190845828729457433,FAILED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/190845828729457433/2da08c51f87f4ab4aeebdf2a53c47a44/artifacts,2025-09-03 08:53:40.936000+00:00,2025-09-03 08:55:26.288000+00:00,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,NHITS_run,,LOCAL,phamminhtuan,fa476ef3421a7918459a24773aa73d0f7bdd7e1c,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_pipeline.py
+c9589da0076945b8b2f9e3088a40fed9,190845828729457433,FINISHED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/190845828729457433/c9589da0076945b8b2f9e3088a40fed9/artifacts,2025-09-03 08:41:19.781000+00:00,2025-09-03 08:47:27.936000+00:00,9350145.0,,,,4163.590454452643,12,100,72,-1,1e-3,"[[512, 512], [512, 512], [512, 512]]",32,"[3, 3, 3]",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,"['lag_5min', 'lag_30min', 'rolling_mean', 'rolling_std', 'lag_2h']",,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,NHITS_run,,LOCAL,phamminhtuan,fa476ef3421a7918459a24773aa73d0f7bdd7e1c,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_pipeline.py
+052a3076e15f42468190b1aa99d1774f,190845828729457433,FAILED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/190845828729457433/052a3076e15f42468190b1aa99d1774f/artifacts,2025-09-03 07:59:01.429000+00:00,2025-09-03 08:05:24.495000+00:00,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,NHITS_run,,LOCAL,phamminhtuan,fa476ef3421a7918459a24773aa73d0f7bdd7e1c,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_pipeline.py
+870cd5c8a0d6408a9af256270e98f69a,190845828729457433,FAILED,file:///Users/phamminhtuan/Desktop/VHT_work/MLOps/mlruns/190845828729457433/870cd5c8a0d6408a9af256270e98f69a/artifacts,2025-09-03 07:49:53.557000+00:00,2025-09-03 07:57:25.932000+00:00,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,,NHITS_run,,LOCAL,phamminhtuan,fa476ef3421a7918459a24773aa73d0f7bdd7e1c,/Users/phamminhtuan/Desktop/VHT_work/MLOps/src/pipelines/train_pipeline.py

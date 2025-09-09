@@ -12,10 +12,10 @@ def count_parameters(model):
     """Đếm số lượng tham số trainable trong model."""
     return sum(p.numel() for p in model.parameters() if p.requires_grad)
 
-def train_nhits(train_df, test_df, config):
+def train_nhits(train_df, config):
     mlflow.set_experiment("NHITS Experiment")
 
-    with mlflow.start_run(run_name=config["experiment"]["run_name"]):
+    with mlflow.start_run(run_name=config["experiment"]["run_name"], nested=True):
         # Hyperparameters từ config
 
         mlflow.log_params({
@@ -49,29 +49,16 @@ def train_nhits(train_df, test_df, config):
         mlflow.log_metric("n_parameters", n_params)
         logger.info(f"Model has {n_params:,} trainable parameters")
 
-        # Forecast
-        forecast = nf.predict().reset_index()
-        y_true = test_df["y"].values[:len(forecast)]
-        y_pred = forecast["NHITS"].values
-        score = mape(y_true, y_pred)
-
-        logger.info(f"Test MAPE: {score:.2f}")
-        mlflow.log_metric("MAPE", score)
-
         # Save model
         nf.save("experiments/models/nhits_model", overwrite=True)
 
         # Create and log input example for the model signature
-        if nf.dataset:
-            # nf.dataset[0] returns a tuple like (input_dict, target_tensor, ...).
-            # We only need the first element for the model signature.
-            input_example = nf.dataset[0][0]
-            mlflow.pytorch.log_model(models[0], "model", input_example=input_example)
+        
 
         mlflow.log_artifact("experiments/models/nhits_model")
-    return nf, score, n_params
+    return nf, n_params
 
-def train_nbeatsx(train_df, test_df, config):
+def train_nbeatsx(train_df, config):
     # Hyperparameters từ config
     mlflow.set_experiment("N-BEATsx Experiment")
     with mlflow.start_run(run_name=config["experiment"]["run_name"]):
@@ -111,17 +98,6 @@ def train_nbeatsx(train_df, test_df, config):
         n_params = count_parameters(nbeatsx_model)
         logger.info(f"Model has {n_params:,} trainable parameters")
         mlflow.log_metric("n_parameters", n_params)
-        # Forecast and evaluate
-        logger.info("Forecasting with NBEATSx model...")
-        # Đối với các mô hình có biến ngoại sinh, chúng ta cần cung cấp giá trị tương lai của các biến đó.
-        # test_df chứa các giá trị tương lai này.
-        forecast = nf.predict(futr_df=test_df).reset_index()
-
-        y_true = test_df["y"].values[:len(forecast)]
-        y_pred = forecast["NBEATSx"].values
-        score = mape(y_true, y_pred)
-        mlflow.log_metric("MAPE", score)
-        logger.info(f"Test MAPE for NBEATSx: {score:.2f}")
 
         # Create and log input example for the model signature
         if nf.dataset:
@@ -132,10 +108,62 @@ def train_nbeatsx(train_df, test_df, config):
 
         nf.save("experiments/models/nbeatsx_model", overwrite=True)
         mlflow.log_artifact("experiments/models/nbeatsx_model")
-    return nf, n_params, score
+    return nf, n_params
 
-def train_timesnet(train_df, test_df, config):
-    pass
+def train_timesnet(train_df, config):
+    # Hyperparameters từ config
+    H = config["model"]["timesnet"]["h"]
+    INPUT_SIZE = config["model"]["timesnet"]["input_size"]
+    MAX_STEPS = config["model"]["timesnet"]["max_steps"]
+
+    mlflow.set_experiment("TimesNet Experiment")
+    with mlflow.start_run(run_name=config["experiment"]["run_name"], nested=True):
+        mlflow.log_params({
+            "h": H,
+            "input_size": INPUT_SIZE,
+            "max_steps": MAX_STEPS
+        })
+
+        models = [TimesNet(
+            h=H,
+            input_size=INPUT_SIZE,
+            max_steps=MAX_STEPS,
+            top_k=config["model"]["timesnet"]['top_k'],
+            num_kernels=config["model"]["timesnet"]["num_kernels"],
+            d_model=config["model"]["timesnet"]["d_model"],
+            d_ff=config["model"]["timesnet"]["d_ff"],
+            e_layers=config["model"]["timesnet"]["e_layers"],
+            dropout=config["model"]["timesnet"]["dropout"],
+            learning_rate=float(config["model"]["timesnet"]["lr"]),
+            batch_size=config["model"]["timesnet"]["batch_size"],
+            early_stop_patience_steps=config["model"]["timesnet"]["early_stop_patience_steps"],
+            loss=DistributionLoss(distribution='StudentT', level=[80, 90]),
+        )]
+        nf = NeuralForecast(models=models, freq=config["data"]["freq"])
+
+        logger.info("Training TimesNet model...")
+        required_columns = ["unique_id", "ds", "y"]
+        nf.fit(train_df[required_columns])
+
+        # Log số lượng tham số
+        timesnet_model = nf.models[0]
+        n_params = count_parameters(timesnet_model)
+        logger.info(f"Model has {n_params:,} trainable parameters")
+        mlflow.log_metric("n_parameters", n_params)
+
+        # Create and log input example for the model signature
+        if nf.dataset:
+            # nf.dataset[0] returns a tuple like (input_dict, target_tensor, ...).
+            # We only need the first element for the model signature.
+            input_example = nf.dataset[0][0]
+            mlflow.pytorch.log_model(models[0], "model", input_example=input_example)
+
+        # Lưu model
+        nf.save("experiments/models/timesnet_model", overwrite=True)
+        mlflow.log_artifact("experiments/models/timesnet_model")
+
+    return nf, n_params
+
 
 def train_patchtst(train_df, config):
     # Hyperparameters từ config
@@ -187,7 +215,9 @@ def train_patchtst(train_df, config):
         # Forecast and evaluate
         
         # Create and log input example for the model signature
-    
+        if nf.dataset:
+            input_example = nf.dataset[0][0]
+            mlflow.pytorch.log_model(models[0], "model", input_example=input_example)
 
         nf.save("experiments/models/patchtst_model", overwrite=True)
         mlflow.log_artifact("experiments/models/patchtst_model")
