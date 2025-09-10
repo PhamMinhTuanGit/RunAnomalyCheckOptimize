@@ -14,7 +14,8 @@ from neuralforecast.losses.pytorch import MAPE, MAE, SMAPE, MSE
 import torch
 
 def run_pipeline():
-
+    # Fix for NotImplementedError on MPS (Apple Silicon)
+    # Sets a fallback to CPU for operations not supported on MPS.
 
     if mlflow.active_run():
         mlflow.end_run()
@@ -94,15 +95,36 @@ def run_pipeline():
         )
         
         if not results.empty:
-            print(results.head())
-            plt.figure(figsize=(12, 6))
-            plt.plot(future_df['ds'], future_df['y'], label='Actual Future', color='green')
-            plt.plot(results['ds'], results['PatchTST-median'], label='Forecast', color='red', linestyle='--')
-            plt.fill_between(results['ds'], results['PatchTST-hi-90'], results['PatchTST-lo-90'], color='red', alpha=0.2, label='Prediction Interval (90%)')
+            # Hợp nhất kết quả dự báo và giá trị thực tế để dễ dàng so sánh và vẽ biểu đồ
+            merged_df = pd.merge(future_df, results, on=['ds', 'unique_id'], how='inner')
+            
+            if merged_df.empty:
+                logger.warning("Không có dữ liệu trùng khớp giữa giá trị thực tế và dự báo. Bỏ qua bước vẽ biểu đồ và tính toán metrics.")
+            else:
+                print(merged_df.head())
+
+                # Xác định các điểm bất thường (actuals nằm ngoài khoảng dự báo 90%)
+                anomalies = merged_df[
+                    (merged_df['y'] > merged_df['PatchTST-hi-100']) | 
+                    (merged_df['y'] < merged_df['PatchTST-lo-100'])
+                ]
+                logger.info(f"Phát hiện {len(anomalies)} điểm bất thường.")
+
+            # Vẽ biểu đồ
+            plt.figure(figsize=(18, 6))
+            plt.plot(merged_df['ds'], merged_df['y'], label='Actual Future', color='green')
+            plt.plot(merged_df['ds'], merged_df['PatchTST-median'], label='Forecast', color='red', linestyle='--')
+            plt.fill_between(merged_df['ds'], merged_df['PatchTST-hi-90'], merged_df['PatchTST-lo-90'], color='red', alpha=0.2, label='Prediction Interval (90%)')
+            # Đánh dấu các điểm bất thường bằng chấm đỏ
+            plt.scatter(anomalies['ds'], anomalies['y'], color='red', s=50, zorder=5, label='Anomaly')
+            plt.legend()
+            plt.title("PatchTST Rolling Forecast with Anomalies")
             plt.savefig(f'{config["experiment"]["run_name"]}_{n_params:.2f}.png')
             mlflow.log_artifact(f'{config["experiment"]["run_name"]}_{n_params:.2f}.png')
-            y_true = torch.tensor(future_df['y'].values, dtype=torch.float32)
-            y_pred = torch.tensor(results['PatchTST-median'].values, dtype=torch.float32)
+
+            # Tính toán metrics sau khi đã căn chỉnh dữ liệu
+            y_true = torch.tensor(merged_df['y'].values, dtype=torch.float32)
+            y_pred = torch.tensor(merged_df['PatchTST-median'].values, dtype=torch.float32)
             y_pred = y_pred[:len(y_true)]
             y_history = torch.tensor(history_df['y'].values, dtype=torch.float32)
             mlflow.log_metric("rolling_forecast_mae", MAE()(y_pred, y_true))

@@ -197,7 +197,7 @@ def train_patchtst(train_df, config):
             scaler_type=config["model"]["patchtst"]["scaler_type"],
             revin = config["model"]["patchtst"]["revin"],
             early_stop_patience_steps=config["model"]["patchtst"]["early_stop_patience_steps"],
-            loss=DistributionLoss(distribution='StudentT', level=[80, 90]),
+            loss=DistributionLoss(distribution='StudentT', level=[90, 100]),
             )]
         nf = NeuralForecast(models=models, freq=config["data"]["freq"])
 
@@ -214,11 +214,7 @@ def train_patchtst(train_df, config):
         mlflow.log_metric("n_parameters", n_params)
         # Forecast and evaluate
         
-        # Create and log input example for the model signature
-        if nf.dataset:
-            input_example = nf.dataset[0][0]
-            mlflow.pytorch.log_model(models[0], "model", input_example=input_example)
-
+        
         nf.save("experiments/models/patchtst_model", overwrite=True)
         mlflow.log_artifact("experiments/models/patchtst_model")
     return nf, n_params

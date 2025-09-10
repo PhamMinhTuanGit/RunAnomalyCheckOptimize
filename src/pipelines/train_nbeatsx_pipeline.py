@@ -13,6 +13,11 @@ from neuralforecast.losses.pytorch import MAPE, MAE, SMAPE, MSE
 import torch
 
 def run_pipeline():
+    # Fix for NotImplementedError on MPS (Apple Silicon)
+    # Sets a fallback to CPU for operations not supported on MPS.
+    if torch.backends.mps.is_available():
+        os.environ["PYTORCH_ENABLE_MPS_FALLBACK"] = "1"
+
     config = load_config("config.yaml")
 
     # Tạo thư mục logs nếu chưa tồn tại
