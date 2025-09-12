@@ -114,7 +114,7 @@ def run_pipeline():
             plt.figure(figsize=(18, 6))
             plt.plot(merged_df['ds'], merged_df['y'], label='Actual Future', color='green')
             plt.plot(merged_df['ds'], merged_df['PatchTST-median'], label='Forecast', color='red', linestyle='--')
-            plt.fill_between(merged_df['ds'], merged_df['PatchTST-hi-90'], merged_df['PatchTST-lo-90'], color='red', alpha=0.2, label='Prediction Interval (90%)')
+            plt.fill_between(merged_df['ds'], merged_df['PatchTST-hi-100'], merged_df['PatchTST-lo-100'], color='red', alpha=0.2, label='Prediction Interval (90%)')
             # Đánh dấu các điểm bất thường bằng chấm đỏ
             plt.scatter(anomalies['ds'], anomalies['y'], color='red', s=50, zorder=5, label='Anomaly')
             plt.legend()

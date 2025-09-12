@@ -8,7 +8,6 @@ import os
 import os
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 
-
 def perform_rolling_forecast(nf: NeuralForecast, history_df: pd.DataFrame, future_df: pd.DataFrame, silent: bool) -> pd.DataFrame:
     """
     Performs a rolling forecast simulation.
@@ -30,8 +29,6 @@ def perform_rolling_forecast(nf: NeuralForecast, history_df: pd.DataFrame, futur
 
     # Use tqdm for a progress bar, which is disabled in silent mode
     for i in tqdm(range(0, len(future_df), h), desc="Rolling Forecast Steps", disable=silent):
-        # Create a future dataframe for the next h steps
-        
         # Predict h steps into the future from the end of the current history
         forecast = nf.predict(df=history_df)
         all_forecasts.append(forecast)
@@ -40,24 +37,8 @@ def perform_rolling_forecast(nf: NeuralForecast, history_df: pd.DataFrame, futur
         actuals_for_step = future_df.iloc[i: i + h]
         if actuals_for_step.empty:
             break
-
-        # For models with exogenous variables, futr_df needs to contain their future values.
-        # For models without, it just needs `unique_id` and `ds`.
-        # `actuals_for_step` contains all necessary columns.
-        forecast = nf.predict(futr_df=actuals_for_step)
-        if forecast.empty:
-            if not silent:
-                print(f"Warning: Prediction for step starting at {actuals_for_step['ds'].min()} returned empty. Stopping.")
-            break
-        all_forecasts.append(forecast)
-
         history_df = pd.concat([history_df, actuals_for_step])
         print(f'Progress: {i}/{len(future_df)}')
-        if not silent:
-            print(f'Progress: {i+h}/{len(future_df)}')
-
-    if not all_forecasts:
-        return pd.DataFrame()
     return pd.concat(all_forecasts).reset_index()
 
 
