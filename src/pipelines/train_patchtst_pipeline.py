@@ -14,24 +14,12 @@ from neuralforecast.losses.pytorch import MAPE, MAE, SMAPE, MSE
 import torch
 
 def run_pipeline():
-    # Fix for NotImplementedError on MPS (Apple Silicon)
-    # Sets a fallback to CPU for operations not supported on MPS.
-
     if mlflow.active_run():
         mlflow.end_run()
-
-  
-    # your logic here
- 
-
     config = load_config("config.yaml")
-
-    # Tạo thư mục logs nếu chưa tồn tại
     log_dir = os.path.dirname(config["log"]["training_log"])
     if log_dir:
         os.makedirs(log_dir, exist_ok=True)
-
-    # Thiết lập logging để ghi ra file và console
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
@@ -45,24 +33,7 @@ def run_pipeline():
     mlflow.set_experiment("PatchTST Experiment")
     with mlflow.start_run(run_name=config["experiment"]["run_name"], nested=True):
         mlflow.log_artifact("config.yaml")
-        # store = FeatureStore(repo_path=config['data']['feature_store_path'])  # sửa path repo Feast của bạn
-        # entity_df = pd.read_parquet(config["data"]["processed_data_parquet_path"])[['unique_id', 'ds']]
-        # 3. Lấy dữ liệu feature lịch sử từ Feast
-        feature_list = [
-            "time_series_fv:y",
-            # "time_series_fv:lag_5min",
-            # "time_series_fv:lag_30min",
-            # "time_series_fv:rolling_mean",
-            # "time_series_fv:rolling_std",
-            # "time_series_fv:lag_2h"
-        ]
-
-        # df = store.get_historical_features(
-        #     entity_df=entity_df[["unique_id", "ds"]],
-        #     features=feature_list
-        # ).to_df()
-        # logger.info(f"Successfully fetched {len(df)} rows from Feast.")
-
+        
         # 4. Split train/test
         logger.info("Splitting data into train and test sets...")
         # split_ratio = config["data"]["split_ratio"]

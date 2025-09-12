@@ -129,15 +129,14 @@ def train_timesnet(train_df, config):
             input_size=INPUT_SIZE,
             max_steps=MAX_STEPS,
             top_k=config["model"]["timesnet"]['top_k'],
-            num_kernels=config["model"]["timesnet"]["num_kernels"],
-            d_model=config["model"]["timesnet"]["d_model"],
-            d_ff=config["model"]["timesnet"]["d_ff"],
-            e_layers=config["model"]["timesnet"]["e_layers"],
+            num_kernels=config["model"]["timesnet"]['num_kernels'],
+            hidden_size=config["model"]["timesnet"]["hidden_size"],
+            conv_hidden_size=config["model"]["timesnet"]["conv_hidden_size"],
             dropout=config["model"]["timesnet"]["dropout"],
             learning_rate=float(config["model"]["timesnet"]["lr"]),
             batch_size=config["model"]["timesnet"]["batch_size"],
             early_stop_patience_steps=config["model"]["timesnet"]["early_stop_patience_steps"],
-            loss=DistributionLoss(distribution='StudentT', level=[80, 90]),
+            loss=DistributionLoss(distribution='StudentT', level=[90, 100]),
         )]
         nf = NeuralForecast(models=models, freq=config["data"]["freq"])
 
@@ -151,13 +150,7 @@ def train_timesnet(train_df, config):
         logger.info(f"Model has {n_params:,} trainable parameters")
         mlflow.log_metric("n_parameters", n_params)
 
-        # Create and log input example for the model signature
-        if nf.dataset:
-            # nf.dataset[0] returns a tuple like (input_dict, target_tensor, ...).
-            # We only need the first element for the model signature.
-            input_example = nf.dataset[0][0]
-            mlflow.pytorch.log_model(models[0], "model", input_example=input_example)
-
+        
         # Lưu model
         nf.save("experiments/models/timesnet_model", overwrite=True)
         mlflow.log_artifact("experiments/models/timesnet_model")

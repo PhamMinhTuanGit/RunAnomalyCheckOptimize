@@ -1,6 +1,6 @@
 from feast import FeatureStore
 import mlflow
-from src.models.train import train_nbeatsx
+from src.models.train import train_timesnet
 from src.utils.logger import get_logger
 from src.utils.config import load_config
 import pandas as pd
@@ -39,26 +39,10 @@ def run_pipeline():
     if mlflow.active_run():
         mlflow.end_run()
 
-    mlflow.set_experiment("N-BEATsx Experiment")
+    mlflow.set_experiment("TimesNet Experiment")
     with mlflow.start_run(run_name=config["experiment"]["run_name"], nested=True):
         mlflow.log_artifact("config.yaml")
-        store = FeatureStore(repo_path=config['data']['feature_store_path'])  # sửa path repo Feast của bạn
-        entity_df = pd.read_parquet(config["data"]["processed_data_parquet_path"])[['unique_id', 'ds']]
-        # 3. Lấy dữ liệu feature lịch sử từ Feast
-        feature_list = [
-            "time_series_fv:y",
-            "time_series_fv:lag_5min",
-            "time_series_fv:lag_30min",
-            "time_series_fv:rolling_mean",
-            "time_series_fv:rolling_std",
-            "time_series_fv:lag_2h"
-        ]
-
-        df = store.get_historical_features(
-            entity_df=entity_df[["unique_id", "ds"]],
-            features=feature_list
-        ).to_df()
-        logger.info(f"Successfully fetched {len(df)} rows from Feast.")
+        
 
         # 4. Split train/test
         logger.info("Splitting data into train and test sets...")
@@ -68,7 +52,7 @@ def run_pipeline():
 
         # 5. Train model
         logger.info("Training NBEATSx model...")
-        model, n_params = train_nbeatsx(train_df, config)
+        model, n_params = train_timesnet(train_df, config)
 
         # 6. Log results to MLflow
         logger.info("Logging metrics and model to MLflow...")
@@ -86,31 +70,49 @@ def run_pipeline():
         results = perform_rolling_forecast(
             future_df=test_df,
             history_df=train_df,
-            nf=NeuralForecast.load("experiments/models/nbeatsx_model"),
+            nf=NeuralForecast.load("experiments/models/timesnet_model"),
             silent=True
         )
         
         if not results.empty:
-            print(results.head())
-            plt.figure(figsize=(12, 6))
-            plt.plot(test_df['ds'], test_df['y'], label='Actual Future', color='green')
-            plt.plot(results['ds'], results['NBEATSx-median'], label='Forecast', color='red', linestyle='--')
-            plt.fill_between(results['ds'], results['NBEATSx-hi-90'], results['NBEATSx-lo-90'], color='red', alpha=0.2, label='Prediction Interval (90%)')
-            plot_filename = f'{config["experiment"]["run_name"]}_nbeatsx_{n_params:.2f}.png'
-            plt.savefig(plot_filename)
-            mlflow.log_artifact(plot_filename)
-
-            # Align lengths before calculating metrics
+            # Hợp nhất kết quả dự báo và giá trị thực tế để dễ dàng so sánh và vẽ biểu đồ
             merged_df = pd.merge(test_df, results, on=['ds', 'unique_id'], how='inner')
-            y_true = torch.tensor(merged_df['y'].values, dtype=torch.float32)
-            y_pred = torch.tensor(merged_df['NBEATSx-median'].values, dtype=torch.float32)
-            y_history = torch.tensor(train_df['y'].values, dtype=torch.float32)
+            
+            if merged_df.empty:
+                logger.warning("Không có dữ liệu trùng khớp giữa giá trị thực tế và dự báo. Bỏ qua bước vẽ biểu đồ và tính toán metrics.")
+            else:
+                print(merged_df.head())
 
+                # Xác định các điểm bất thường (actuals nằm ngoài khoảng dự báo 90%)
+                anomalies = merged_df[
+                    (merged_df['y'] > merged_df['TimesNet-hi-100']) | 
+                    (merged_df['y'] < merged_df['TimesNet-lo-100'])
+                ]
+                logger.info(f"Phát hiện {len(anomalies)} điểm bất thường.")
+
+            # Vẽ biểu đồ
+            plt.figure(figsize=(18, 6))
+            plt.plot(merged_df['ds'], merged_df['y'], label='Actual Future', color='green')
+            plt.plot(merged_df['ds'], merged_df['TimesNet-median'], label='Forecast', color='red', linestyle='--')
+            plt.fill_between(merged_df['ds'], merged_df['TimesNet-hi-100'], merged_df['TimesNet-lo-100'], color='red', alpha=0.2, label='Prediction Interval (90%)')
+            # Đánh dấu các điểm bất thường bằng chấm đỏ
+            plt.scatter(anomalies['ds'], anomalies['y'], color='red', s=50, zorder=5, label='Anomaly')
+            plt.legend()
+            plt.title("TimesNet Rolling Forecast with Anomalies")
+            plt.savefig(f'{config["experiment"]["run_name"]}_{n_params:.2f}.png')
+            mlflow.log_artifact(f'{config["experiment"]["run_name"]}_{n_params:.2f}.png')
+
+            # Tính toán metrics sau khi đã căn chỉnh dữ liệu
+            y_true = torch.tensor(merged_df['y'].values, dtype=torch.float32)
+            y_pred = torch.tensor(merged_df['TimesNet-median'].values, dtype=torch.float32)
+            y_pred = y_pred[:len(y_true)]
+            y_history = torch.tensor(train_df['y'].values, dtype=torch.float32)
             mlflow.log_metric("rolling_forecast_mae", MAE()(y_pred, y_true))
             mlflow.log_metric("rolling_forecast_mse", MSE()(y_pred, y_true, y_insample=y_history))
             mlflow.log_metric("rolling_forecast_smape", MAPE()(y_pred, y_true, y_insample=y_history))
         else:
             logger.warning("Rolling forecast did not produce any results. Skipping plotting and metrics.")
+
         mlflow.end_run()
 
 if __name__ == "__main__":

@@ -14,13 +14,9 @@ import torch
 
 def run_pipeline():
     config = load_config("config.yaml")
-
-    # Tạo thư mục logs nếu chưa tồn tại
     log_dir = os.path.dirname(config["log"]["training_log"])
     if log_dir:
         os.makedirs(log_dir, exist_ok=True)
-
-    # Thiết lập logging để ghi ra file và console
     logging.basicConfig(
         level=logging.INFO,
         format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
@@ -68,26 +64,44 @@ def run_pipeline():
         )
         
         if not results.empty:
-            print(results.head())
-            plt.figure(figsize=(12, 6))
-            plt.plot(test_df['ds'], test_df['y'], label='Actual Future', color='green')
-            plt.plot(results['ds'], results['NHITS-median'], label='Forecast', color='red', linestyle='--')
-            plt.fill_between(results['ds'], results['NHITS-hi-90'], results['NHITS-lo-90'], color='red', alpha=0.2, label='Prediction Interval (90%)')
-            plot_filename = f'{config["experiment"]["run_name"]}_nhits_{n_params:.2f}.png'
-            plt.savefig(plot_filename)
-            mlflow.log_artifact(plot_filename)
-
-            # Align lengths before calculating metrics
+            # Hợp nhất kết quả dự báo và giá trị thực tế để dễ dàng so sánh và vẽ biểu đồ
             merged_df = pd.merge(test_df, results, on=['ds', 'unique_id'], how='inner')
+            
+            if merged_df.empty:
+                logger.warning("Không có dữ liệu trùng khớp giữa giá trị thực tế và dự báo. Bỏ qua bước vẽ biểu đồ và tính toán metrics.")
+            else:
+                print(merged_df.head())
+
+                # Xác định các điểm bất thường (actuals nằm ngoài khoảng dự báo 90%)
+                anomalies = merged_df[
+                    (merged_df['y'] > merged_df['NHITS-hi-100']) | 
+                    (merged_df['y'] < merged_df['NHITS-lo-100'])
+                ]
+                logger.info(f"Phát hiện {len(anomalies)} điểm bất thường.")
+
+            # Vẽ biểu đồ
+            plt.figure(figsize=(18, 6))
+            plt.plot(merged_df['ds'], merged_df['y'], label='Actual Future', color='green')
+            plt.plot(merged_df['ds'], merged_df['NHITS-median'], label='Forecast', color='red', linestyle='--')
+            plt.fill_between(merged_df['ds'], merged_df['NHITS-hi-100'], merged_df['NHITS-lo-100'], color='red', alpha=0.2, label='Prediction Interval (90%)')
+            # Đánh dấu các điểm bất thường bằng chấm đỏ
+            plt.scatter(anomalies['ds'], anomalies['y'], color='red', s=50, zorder=5, label='Anomaly')
+            plt.legend()
+            plt.title("NHITS Rolling Forecast with Anomalies")
+            plt.savefig(f'{config["experiment"]["run_name"]}_{n_params:.2f}.png')
+            mlflow.log_artifact(f'{config["experiment"]["run_name"]}_{n_params:.2f}.png')
+
+            # Tính toán metrics sau khi đã căn chỉnh dữ liệu
             y_true = torch.tensor(merged_df['y'].values, dtype=torch.float32)
             y_pred = torch.tensor(merged_df['NHITS-median'].values, dtype=torch.float32)
+            y_pred = y_pred[:len(y_true)]
             y_history = torch.tensor(train_df['y'].values, dtype=torch.float32)
-
             mlflow.log_metric("rolling_forecast_mae", MAE()(y_pred, y_true))
             mlflow.log_metric("rolling_forecast_mse", MSE()(y_pred, y_true, y_insample=y_history))
             mlflow.log_metric("rolling_forecast_smape", MAPE()(y_pred, y_true, y_insample=y_history))
         else:
             logger.warning("Rolling forecast did not produce any results. Skipping plotting and metrics.")
+
         mlflow.end_run()
 
 if __name__ == "__main__":
