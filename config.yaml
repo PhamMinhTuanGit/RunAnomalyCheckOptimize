@@ -1,5 +1,5 @@
 experiment:
-  run_name: "run"
+  run_name: "run_2"
 
 data:
   path: "data/raw/train/"
@@ -34,9 +34,9 @@ model:
     input_size: 72
     patch_len: 24
     stride: 24
-    max_steps: 500
-    hidden_size: 512
-    linear_hidden_size: 1024
+    max_steps: 100
+    hidden_size: 128
+    linear_hidden_size: 256
     encoder_layers: 6
     dropout: 0.2
     fc_dropout: 0.2

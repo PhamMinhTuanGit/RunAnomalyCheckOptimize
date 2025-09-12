@@ -80,7 +80,10 @@ def run_pipeline():
                     (merged_df['y'] < merged_df['PatchTST-lo-100'])
                 ]
                 logger.info(f"Phát hiện {len(anomalies)} điểm bất thường.")
+            filename = f'{config["experiment"]["run_name"]}_anomalies_{n_params:.2f}.csv'
 
+            mlflow.log_metric("n_anomalies", len(anomalies))
+            mlflow.log_artifact(filename, index=False)
             # Vẽ biểu đồ
             plt.figure(figsize=(18, 6))
             plt.plot(merged_df['ds'], merged_df['y'], label='Actual Future', color='green')
@@ -100,7 +103,7 @@ def run_pipeline():
             y_history = torch.tensor(history_df['y'].values, dtype=torch.float32)
             mlflow.log_metric("rolling_forecast_mae", MAE()(y_pred, y_true))
             mlflow.log_metric("rolling_forecast_mse", MSE()(y_pred, y_true, y_insample=y_history))
-            mlflow.log_metric("rolling_forecast_smape", MAPE()(y_pred, y_true, y_insample=y_history))
+            mlflow.log_metric("rolling_forecast_smape", SMAPE()(y_pred, y_true, y_insample=y_history))
         else:
             logger.warning("Rolling forecast did not produce any results. Skipping plotting and metrics.")
         mlflow.end_run()

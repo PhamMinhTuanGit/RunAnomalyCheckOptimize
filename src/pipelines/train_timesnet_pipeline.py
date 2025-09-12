@@ -56,12 +56,12 @@ def run_pipeline():
 
         # 6. Log results to MLflow
         logger.info("Logging metrics and model to MLflow...")
-        mlflow.log_params(config["model"]["nbeatsx"])
+        mlflow.log_params(config["model"]["timesnet"])
         mlflow.log_metric("n_parameters", n_params)
 
 
         # Log model artifact (directory)
-        mlflow.log_artifact("experiments/models/nbeatsx_model")
+        mlflow.log_artifact("experiments/models/timesnet_model")
         # Log model in pytorch format for serving
        
 
