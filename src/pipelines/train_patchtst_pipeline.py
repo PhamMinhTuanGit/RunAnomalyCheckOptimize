@@ -80,12 +80,15 @@ def run_pipeline():
                     (merged_df['y'] < merged_df['PatchTST-lo-100'])
                 ]
                 logger.info(f"Phát hiện {len(anomalies)} điểm bất thường.")
-            filename = f'{config["experiment"]["run_name"]}_anomalies_{n_params:.2f}.csv'
+                mlflow.log_metric("n_anomalies", len(anomalies))
 
-            mlflow.log_metric("n_anomalies", len(anomalies))
-            mlflow.log_artifact(filename, index=False)
-            # Vẽ biểu đồ
-            plt.figure(figsize=(18, 6))
+                if not anomalies.empty:
+                    anomaly_filename = f'patchtst_anomalies_{config["experiment"]["run_name"]}.csv'
+                    anomalies.to_csv(anomaly_filename, index=False)
+                    mlflow.log_artifact(anomaly_filename)
+                    logger.info(f"Đã lưu các điểm bất thường vào file: {anomaly_filename}")
+
+            plt.figure(figsize=(18, 6)) # Vẽ biểu đồ
             plt.plot(merged_df['ds'], merged_df['y'], label='Actual Future', color='green')
             plt.plot(merged_df['ds'], merged_df['PatchTST-median'], label='Forecast', color='red', linestyle='--')
             plt.fill_between(merged_df['ds'], merged_df['PatchTST-hi-100'], merged_df['PatchTST-lo-100'], color='red', alpha=0.2, label='Prediction Interval (90%)')

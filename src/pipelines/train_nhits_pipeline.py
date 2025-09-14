@@ -78,6 +78,13 @@ def run_pipeline():
                     (merged_df['y'] < merged_df['NHITS-lo-100'])
                 ]
                 logger.info(f"Phát hiện {len(anomalies)} điểm bất thường.")
+                mlflow.log_metric("n_anomalies", len(anomalies))
+
+                if not anomalies.empty:
+                    anomaly_filename = f'nhits_anomalies_{config["experiment"]["run_name"]}.csv'
+                    anomalies.to_csv(anomaly_filename, index=False)
+                    mlflow.log_artifact(anomaly_filename)
+                    logger.info(f"Đã lưu các điểm bất thường vào file: {anomaly_filename}")
 
             # Vẽ biểu đồ
             plt.figure(figsize=(18, 6))
