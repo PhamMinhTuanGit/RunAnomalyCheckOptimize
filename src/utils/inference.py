@@ -38,12 +38,6 @@ def process_traffic_data(df: pd.DataFrame, direction: str) -> pd.DataFrame:
     
     return processed_df
 
-def mean_absolute_percentage_error(y_true, y_pred):
-    """Calculates MAPE, avoiding division by zero."""
-    y_true, y_pred = np.array(y_true), np.array(y_pred)
-    # Avoid division by zero by replacing 0s in y_true with a small number or 1
-    # Here we replace with 1, assuming traffic values are significantly larger.
-    return np.mean(np.abs((y_true - y_pred) / np.where(y_true == 0, 1, y_true))) * 100
 
 def save_dict_to_json(data: dict, file_path: str):
     """Saves a dictionary to a JSON file."""
@@ -123,3 +117,4 @@ def load_and_process_data(
         logging.info(f"\nComplete! Data saved successfully. Total rows: {len(combined_df)}")
     
     return combined_df
+

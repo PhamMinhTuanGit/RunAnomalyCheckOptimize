@@ -34,7 +34,7 @@ model:
     input_size: 72
     patch_len: 24
     stride: 24
-    max_steps: 100
+    max_steps: 500
     hidden_size: 128
     linear_hidden_size: 256
     encoder_layers: 6

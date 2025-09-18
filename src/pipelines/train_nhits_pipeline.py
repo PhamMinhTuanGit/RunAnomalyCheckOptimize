@@ -52,7 +52,7 @@ def run_pipeline():
         mlflow.log_metric("n_parameters", n_params)
 
         # Log model artifact (directory)
-        mlflow.log_artifact("experiments/models/nhits_model")
+        mlflow.log_artifact(f"experiments/models/nhits_model_{n_params:.2f}")
         
         # 7. Perform rolling forecast evaluation
         logger.info("Performing rolling forecast evaluation...")
