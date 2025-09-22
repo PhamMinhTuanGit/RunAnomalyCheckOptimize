@@ -58,10 +58,11 @@ def run_pipeline():
         mlflow.log_artifact("experiments/models/patchtst_model")
         future_df = pd.read_parquet("data/processed/test_data.parquet")
         history_df = pd.read_parquet("data/processed/train_data.parquet")
+        path = f"experiments/models/patchtst_model_{n_params/1e6:.2f}M"
         results = perform_rolling_forecast(
             future_df=future_df,
             history_df=history_df,
-            nf=NeuralForecast.load("experiments/models/patchtst_model"),
+            nf=NeuralForecast.load(path),
             silent= True
         )
         

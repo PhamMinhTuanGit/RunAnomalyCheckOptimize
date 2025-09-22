@@ -56,10 +56,11 @@ def run_pipeline():
         
         # 7. Perform rolling forecast evaluation
         logger.info("Performing rolling forecast evaluation...")
+        path = f"experiments/models/nhits_model_{n_params/1e6:.2f}M"
         results = perform_rolling_forecast(
             future_df=test_df,
             history_df=train_df,
-            nf=NeuralForecast.load("experiments/models/nhits_model"),
+            nf=NeuralForecast.load(path),
             silent=True
         )
         
