@@ -45,18 +45,18 @@ def run_pipeline():
         # 5. Train model
         logger.info("Training NHITS model...")
         model, n_params = train_nhits(train_df, config)
-
+        path = f"experiments/models/nhits_model_{n_params/1e6:.2f}M"
         # 6. Log results to MLflow
         logger.info("Logging metrics and model to MLflow...")
         mlflow.log_params(config["model"]["nhits"])
         mlflow.log_metric("n_parameters", n_params)
 
         # Log model artifact (directory)
-        mlflow.log_artifact(f"experiments/models/nhits_model_{n_params:.2f}")
+        mlflow.log_artifact(path)
         
         # 7. Perform rolling forecast evaluation
         logger.info("Performing rolling forecast evaluation...")
-        path = f"experiments/models/nhits_model_{n_params/1e6:.2f}M"
+        
         results = perform_rolling_forecast(
             future_df=test_df,
             history_df=train_df,

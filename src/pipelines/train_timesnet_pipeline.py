@@ -59,15 +59,15 @@ def run_pipeline():
         mlflow.log_params(config["model"]["timesnet"])
         mlflow.log_metric("n_parameters", n_params)
 
-
+        path = f"experiments/models/timesnet_model_{n_params/1e6:.2f}M"
         # Log model artifact (directory)
-        mlflow.log_artifact("experiments/models/timesnet_model")
+        mlflow.log_artifact(path)
         # Log model in pytorch format for serving
        
 
         # 7. Perform rolling forecast evaluation
         logger.info("Performing rolling forecast evaluation...")
-        path = f"experiments/models/timesnet_model_{n_params/1e6:.2f}M"
+        
         results = perform_rolling_forecast(
             future_df=test_df,
             history_df=train_df,

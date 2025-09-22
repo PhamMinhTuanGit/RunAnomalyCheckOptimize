@@ -47,7 +47,7 @@ def run_pipeline():
         # 5. Train model
         logger.info("Training PatchTST model...")
         model, n_params = train_patchtst(train_df, config)
-
+        path = f"experiments/models/patchtst_model_{n_params/1e6:.2f}M"
         # 6. Log results to MLflow
         logger.info("Logging metrics and model to MLflow...")
         mlflow.log_params(config["model"]["patchtst"])
@@ -55,10 +55,10 @@ def run_pipeline():
         
 
         # Log model artifact (directory)
-        mlflow.log_artifact("experiments/models/patchtst_model")
+        mlflow.log_artifact(path)
         future_df = pd.read_parquet("data/processed/test_data.parquet")
         history_df = pd.read_parquet("data/processed/train_data.parquet")
-        path = f"experiments/models/patchtst_model_{n_params/1e6:.2f}M"
+        
         results = perform_rolling_forecast(
             future_df=future_df,
             history_df=history_df,
