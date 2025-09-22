@@ -51,6 +51,7 @@ def train_nhits(train_df, config):
 
         # Save model
         path = f"experiments/models/nhits_model_{n_params/1e6:.2f}M"
+        print(path)
         nf.save(path, overwrite=True)
 
         # Create and log input example for the model signature
@@ -104,6 +105,7 @@ def train_timesnet(train_df, config):
         
         # Lưu model
         path = f"experiments/models/timesnet_model_{n_params/1e6:.2f}M"
+        print(path)
         nf.save(path, overwrite=True)
         mlflow.log_artifact(path)
 
@@ -160,6 +162,7 @@ def train_patchtst(train_df, config):
         # Forecast and evaluate
         
         path = f"experiments/models/patchtst_model_{n_params/1e6:.2f}M"
+        print(path)
         nf.save(path, overwrite=True)
         mlflow.log_artifact(path)
     return nf, n_params
