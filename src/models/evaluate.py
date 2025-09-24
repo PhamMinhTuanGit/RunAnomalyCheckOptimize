@@ -10,7 +10,7 @@ from src.models.train import count_parameters
 from src.utils.logger import get_logger
 from src.utils.config import load_config
 from src.utils.metrics import get_metrics
-
+from datetime import timedelta
 os.environ["TF_CPP_MIN_LOG_LEVEL"] = "3"
 config = load_config("config.yaml")
 
@@ -56,7 +56,52 @@ def perform_rolling_forecast(nf: NeuralForecast, history_df: pd.DataFrame, futur
         print(f'Progress: {i}/{len(future_df)}')
     return pd.concat(all_forecasts).reset_index()
 
+def plot_anomalies_interval_90(anomaly_path):
+    anomaly_df = pd.read_csv(anomaly_path)
 
+    # Chuyển cột thời gian về kiểu datetime
+    anomaly_df['ds'] = pd.to_datetime(anomaly_df['ds'])
+
+    # Sắp xếp theo thời gian nếu chưa được sắp xếp
+    df = pd.read_parquet('./data/processed/test_data.parquet')
+
+    df = df.sort_values('ds')
+    if 'TimesNet-median' in anomaly_df.columns:
+        save_dir = 'results/TimesNet_anomalies_plots'
+    elif 'NHITS-median' in anomaly_df.columns:
+        save_dir = 'results/NHITS_anomalies_plots'
+    else:
+        save_dir = 'results/PatchTST_anomalies_plots'
+    # Vẽ dữ liệu ±1 ngày quanh mỗi anomaly
+    merged_df = pd.read_csv('results/prediction_nhits_7.71.csv')
+    merged_df['ds'] = pd.to_datetime(merged_df['ds'])
+
+    lo_90_cols = [col for col in anomaly_df.columns if col.endswith('-lo-90')]
+    hi_90_cols = [col for col in anomaly_df.columns if col.endswith('-hi-90')]
+    print(lo_90_cols, hi_90_cols)
+    for idx, row in anomaly_df.iterrows():
+        anomaly_time = row['ds']
+
+        # Xác định khoảng thời gian xung quanh anomaly
+        start_time = anomaly_time - timedelta(days=1)
+        end_time = anomaly_time + timedelta(days=1)
+
+        # Trích xuất dữ liệu trong khoảng đó
+        window_data = df[(df['ds'] >= start_time) & (df['ds'] <= end_time)]
+        anomaly_window = merged_df[(merged_df['ds'] >= start_time) & (merged_df['ds'] <= end_time)]
+        # Plot
+        plt.figure(figsize=(10, 4))
+        plt.plot(window_data['ds'], window_data['y'], label='Giá trị')
+        plt.fill_between(anomaly_window['ds'], anomaly_window[lo_90_cols[0]], anomaly_window[hi_90_cols[0]], alpha=0.3)
+        plt.axvline(anomaly_time, color='red', linestyle='--', label='Anomaly')
+        plt.title(f'Anomaly tại {anomaly_time}')
+        plt.xlabel('Thời gian')
+        plt.ylabel('Giá trị')
+        plt.legend()
+        plt.grid(True)
+        plt.tight_layout()
+        plt.show()
+        plt.savefig(save_dir + f'/anomaly_{idx+1}_{anomaly_time.date()}.png')
 def save_results(forecasts_df: pd.DataFrame, future_df: pd.DataFrame, output_dir: str, model_name: str, silent: bool) -> str:
     """
     Merges forecasts with actuals, saves to a CSV, and returns the file path.
@@ -113,11 +158,11 @@ def patchtst_evaluate(model_path):
                     (merged_df['y'] < merged_df['PatchTST-lo-90'])
                 ]
                 print(f"Phát hiện {len(anomalies)} điểm bất thường.")
-            filename = f'{config["experiment"]["run_name"]}_anomalies_{n_params:.2f}.csv'
+            filename = f'patchtst_{config["experiment"]["run_name"]}_anomalies_{n_params:.2f}.csv'
             anomalies.to_csv(filename, index=False)
             mlflow.log_metric("n_anomalies", len(anomalies))
             mlflow
-            mlflow.log_artifact(filename, index=False)
+            mlflow.log_artifact(filename)
             # Vẽ biểu đồ
             plt.figure(figsize=(18, 6))
             plt.plot(merged_df['ds'], merged_df['y'], label='Actual Future', color='green')
@@ -134,7 +179,8 @@ def patchtst_evaluate(model_path):
             y_true = torch.tensor(merged_df['y'].values, dtype=torch.float32)
             y_pred = torch.tensor(merged_df['PatchTST-median'].values, dtype=torch.float32)
             metrics = get_metrics(y_true, y_pred)
-            mlflow.log_metrics("Evaluation Metrics",metrics)        
+            mlflow.log_metrics(metrics)  
+            plot_anomalies_interval_90(filename)      
         else:  
             print("Rolling forecast did not produce any results. Skipping plotting and metrics.")
         mlflow.end_run()
@@ -147,13 +193,13 @@ def timesnet_evaluate(model_path):
         mlflow.log_params(config["model"]["timesnet"])
         mlflow.log_metric("n_parameters", n_params)
         # Log model artifact (directory)
-        mlflow.log_artifact("experiments/models/timesnet_model")
+        mlflow.log_artifact(model_path)
         future_df = pd.read_parquet("data/processed/test_data.parquet")
         history_df = pd.read_parquet("data/processed/train_data.parquet")
         results = perform_rolling_forecast(
             future_df=future_df,
             history_df=history_df,
-            nf=NeuralForecast.load("experiments/models/timesnet_model"),
+            nf=NeuralForecast.load(model_path),
             silent= True
         )
         
@@ -173,7 +219,7 @@ def timesnet_evaluate(model_path):
                     (merged_df['y'] < merged_df['TimesNet-lo-90'])
                 ]
                 print(f"Phát hiện {len(anomalies)} điểm bất thường.")
-            filename = f'{config["experiment"]["run_name"]}_anomalies_{n_params:.2f}.csv'
+            filename = f'timesnet_{config["experiment"]["run_name"]}_anomalies_{n_params:.2f}.csv'
             anomalies.to_csv(filename, index=False)
             mlflow.log_metric("n_anomalies", len(anomalies))
             mlflow.log_artifact(filename, index=False)
@@ -192,7 +238,8 @@ def timesnet_evaluate(model_path):
             y_true = torch.tensor(merged_df['y'].values, dtype=torch.float32)
             y_pred = torch.tensor(merged_df['TimesNet-median'].values, dtype=torch.float32)
             metrics = get_metrics(y_true, y_pred)
-            mlflow.log_metrics("Evaluation Metrics",metrics)        
+            mlflow.log_metrics(metrics) 
+            plot_anomalies_interval_90(filename)      
         else:  
             print("Rolling forecast did not produce any results. Skipping plotting and metrics.")
         mlflow.end_run()
@@ -231,10 +278,10 @@ def nhits_evaluate(model_path):
                     (merged_df['y'] < merged_df['NHITS-lo-90'])
                 ]
                 print(f"Phát hiện {len(anomalies)} điểm bất thường.")
-            filename = f'{config["experiment"]["run_name"]}_anomalies_{n_params:.2f}.csv'
+            filename = f'nhits_{config["experiment"]["run_name"]}_anomalies_{n_params:.2f}.csv'
             anomalies.to_csv(filename, index=False)
             mlflow.log_metric("n_anomalies", len(anomalies))
-            mlflow.log_artifact(filename, index=False)
+            mlflow.log_artifact(filename)
             # Vẽ biểu đồ
             plt.figure(figsize=(18, 6))
             plt.plot(merged_df['ds'], merged_df['y'], label='Actual Future', color='green')
@@ -250,7 +297,8 @@ def nhits_evaluate(model_path):
             y_true = torch.tensor(merged_df['y'].values, dtype=torch.float32)
             y_pred = torch.tensor(merged_df['NHITS-median'].values, dtype=torch.float32)
             metrics = get_metrics(y_true, y_pred)
-            mlflow.log_metrics("Evaluation Metrics",metrics)        
+            mlflow.log_metrics("Evaluation Metrics",metrics) 
+            plot_anomalies_interval_90(filename)       
         else:  
             print("Rolling forecast did not produce any results. Skipping plotting and metrics.")
         mlflow.end_run()

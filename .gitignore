@@ -31,7 +31,8 @@ airflow_home/
 # --- File nhạy cảm ---
 # Không bao giờ commit mật khẩu hoặc các file chứa thông tin nhạy cảm.
 *.json.generated
-
+results/*_anomalies_*
+results/anomaly_*
 # --- File của hệ điều hành và IDE ---
 # macOS
 .DS_Store

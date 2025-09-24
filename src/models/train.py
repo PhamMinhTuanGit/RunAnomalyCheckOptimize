@@ -36,6 +36,7 @@ def train_nhits(train_df, config):
             learning_rate=config["model"]["nhits"].get("learning_rate", 1e-3),
             early_stop_patience_steps=config["model"]["nhits"].get("early_stop_patience_steps", -1),
             loss=DistributionLoss(distribution='Normal', level=[80, 90]),
+            
         )]
 
         nf = NeuralForecast(models=models, freq=config["data"]["freq"])
@@ -88,7 +89,7 @@ def train_timesnet(train_df, config):
             learning_rate=float(config["model"]["timesnet"]["lr"]),
             batch_size=config["model"]["timesnet"]["batch_size"],
             early_stop_patience_steps=config["model"]["timesnet"]["early_stop_patience_steps"],
-            loss=DistributionLoss(distribution='StudentT', level=[90, 100]),
+            loss=DistributionLoss(distribution='StudentT', level=[80,85,90,95,100]),
         )]
         nf = NeuralForecast(models=models, freq=config["data"]["freq"])
 
@@ -144,7 +145,7 @@ def train_patchtst(train_df, config):
             scaler_type=config["model"]["patchtst"]["scaler_type"],
             revin = config["model"]["patchtst"]["revin"],
             early_stop_patience_steps=config["model"]["patchtst"]["early_stop_patience_steps"],
-            loss=DistributionLoss(distribution='StudentT', level=[90, 100]),
+            loss=DistributionLoss(distribution='StudentT', level=[80,85,90,95,100]),
             )]
         nf = NeuralForecast(models=models, freq=config["data"]["freq"])
 

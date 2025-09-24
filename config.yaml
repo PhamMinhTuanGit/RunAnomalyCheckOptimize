@@ -14,10 +14,10 @@ model:
     h: 12
     input_size: 72
     max_steps: 500
-    lr: 1e-3
+    lr: 1e-4
     batch_size: 32
-    n_blocks: [2, 2, 2]        # List[int], mỗi stack có 3 block
-    mlp_units: [[512, 512], [512, 512], [512, 512]]   # List[List[int]]
+    n_blocks: [3, 3, 3]        # List[int], mỗi stack có 3 block
+    mlp_units: [[1024, 1024], [1024, 1024], [1024, 1024]]   # List[List[int]]
     early_stop_patience_steps: -1
   nbeatsx:
     h: 12
@@ -35,8 +35,8 @@ model:
     patch_len: 24
     stride: 24
     max_steps: 500
-    hidden_size: 128
-    linear_hidden_size: 256
+    hidden_size: 512
+    linear_hidden_size: 1024
     encoder_layers: 6
     dropout: 0.2
     fc_dropout: 0.2
@@ -53,8 +53,8 @@ model:
     max_steps: 500
     top_k: 5
     num_kernels: 6
-    conv_hidden_size: 64
-    hidden_size: 64
+    conv_hidden_size: 128
+    hidden_size: 128
     dropout: 0.1
     lr: 1e-4
     batch_size: 32
