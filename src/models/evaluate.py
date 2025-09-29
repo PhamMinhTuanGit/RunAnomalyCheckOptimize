@@ -303,8 +303,69 @@ def nhits_evaluate(model_path):
             print("Rolling forecast did not produce any results. Skipping plotting and metrics.")
         mlflow.end_run()
 
+
+def timesnet_evaluate_non_distribution(model_path):
+    nf = NeuralForecast.load(model_path)
+    n_params = count_parameters(nf.models[0])
+
+    mlflow.set_experiment(f"TimesNet Evaluation {n_params:.2f}M")
+
+    with mlflow.start_run(run_name=config["experiment"]["run_name"], nested=True):
+        mlflow.log_artifact("config.yaml")
+        mlflow.log_params(config["model"]["timesnet"])
+        mlflow.log_metric("n_parameters", n_params)
+        mlflow.log_artifact(model_path)
+
+        future_df = pd.read_parquet("data/processed/test_data.parquet")
+        history_df = pd.read_parquet("data/processed/train_data.parquet")
+
+        results = perform_rolling_forecast(
+            future_df=future_df,
+            history_df=history_df,
+            nf=nf,
+            silent=True
+        )
+
+        if results.empty:
+            print("⚠️ Rolling forecast did not produce any results. Skipping plotting and metrics.")
+            mlflow.end_run()
+            return
+
+        # Merge với dữ liệu thực tế để so sánh
+        merged_df = pd.merge(future_df, results, on=['ds', 'unique_id'], how='inner')
+
+        if merged_df.empty:
+            print("⚠️ Không có dữ liệu trùng khớp giữa thực tế và dự báo.")
+            mlflow.end_run()
+            return
+
+        output_csv = f"results/prediction_timesnet_{n_params/1e6:.2f}.csv"
+        merged_df.to_csv(output_csv, index=False)
+        mlflow.log_artifact(output_csv)
+
+        print(merged_df.head())
+
+        # Vẽ biểu đồ không có khoảng dự báo
+        plt.figure(figsize=(18, 6))
+        plt.plot(merged_df['ds'], merged_df['y'], label='Actual Future', color='green')
+        plt.plot(merged_df['ds'], merged_df['TimesNet'], label='Forecast', color='red', linestyle='--')
+        plt.title("TimesNet Rolling Forecast")
+        plt.legend()
+        fig_path = f'{config["experiment"]["run_name"]}_{n_params:.2f}.png'
+        plt.savefig(fig_path)
+        mlflow.log_artifact(fig_path)
+
+        # Tính metrics
+        y_true = torch.tensor(merged_df['y'].values, dtype=torch.float32)
+        y_pred = torch.tensor(merged_df['TimesNet-median'].values, dtype=torch.float32)
+        metrics = get_metrics(y_true, y_pred)
+        mlflow.log_metrics(metrics)
+
+        mlflow.end_run()
+
 if __name__ == "__main__":
     parser = setup_parser()
     args = parser.parse_args()
     model_path = args.model_path
-    patchtst_evaluate(model_path)
+    # patchtst_evaluate(model_path)
+    timesnet_evaluate_non_distribution(model_path)

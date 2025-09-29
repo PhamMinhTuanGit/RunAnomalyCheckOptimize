@@ -5,17 +5,17 @@ import matplotlib.pyplot as plt
 from collections import defaultdict
 
 # === CONFIGURATION ===
-csv_path = "results/prediction_patchtst_3.21.csv"             # 📝 Replace with your CSV file
+csv_path = "results/prediction_nhits_7.71.csv"             # 📝 Replace with your CSV file
 timestamp_col = "ds"                   # Name of the timestamp column
 segment_length = 12
 
 # Column indexes (after removing timestamp):
 y_col = 0
 y_pred_col = 5
-lo_95_col = 7
-hi_95_col = 8
+lo_95_col = 6
+hi_95_col = 9
 
-output_dir = "results/anomaly_segemnts_interval90"
+output_dir = "results/anomaly_segemnts_nhits_7.7M_interval90"
 os.makedirs(output_dir, exist_ok=True)
 
 # === 1. Load CSV safely ===

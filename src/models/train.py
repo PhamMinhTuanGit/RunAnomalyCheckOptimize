@@ -3,7 +3,7 @@ from neuralforecast.models import NHITS, NBEATSx, PatchTST, TimesNet
 from neuralforecast import NeuralForecast
 from src.utils.logger import get_logger
 from src.utils.metrics import mape
-from neuralforecast.losses.pytorch import DistributionLoss 
+from neuralforecast.losses.pytorch import DistributionLoss, MAPE, MAE, MSE
 
 logger = get_logger(__name__)
 
@@ -145,7 +145,8 @@ def train_patchtst(train_df, config):
             scaler_type=config["model"]["patchtst"]["scaler_type"],
             revin = config["model"]["patchtst"]["revin"],
             early_stop_patience_steps=config["model"]["patchtst"]["early_stop_patience_steps"],
-            loss=DistributionLoss(distribution='StudentT', level=[80,85,90,95,100]),
+            #loss=DistributionLoss(distribution='StudentT', level=[80,85,90,95,100]),
+            loss = MSE()
             )]
         nf = NeuralForecast(models=models, freq=config["data"]["freq"])
 
@@ -162,7 +163,8 @@ def train_patchtst(train_df, config):
         mlflow.log_metric("n_parameters", n_params)
         # Forecast and evaluate
         
-        path = f"experiments/models/patchtst_model_{n_params/1e6:.2f}M"
+        #path = f"experiments/models/patchtst_model_{n_params/1e6:.2f}M"
+        path = f"experiments/models/patchtst_model_{n_params/1e6:.2f}M_MSE"
         print(path)
         nf.save(path, overwrite=True)
         mlflow.log_artifact(path)
