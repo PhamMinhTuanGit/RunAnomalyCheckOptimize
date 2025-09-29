@@ -34,14 +34,14 @@ model:
     input_size: 72
     patch_len: 24
     stride: 24
-    max_steps: 500
-    hidden_size: 512
-    linear_hidden_size: 1024
+    max_steps: 1000
+    hidden_size: 768
+    linear_hidden_size: 1536
     encoder_layers: 6
     dropout: 0.2
     fc_dropout: 0.2
     attn_dropout: 0.1
-    lr: 1e-4
+    lr: 5e-5
     scaler_type: 'robust'
     revin: False
     batch_size: 32
