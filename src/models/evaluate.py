@@ -277,6 +277,24 @@ def evaluate(model_path, model_name):
         
         mlflow.end_run()
 
+def get_anomalies(df):
+    if 'TimesNet-median' in df.columns:
+        model_name = 'TimesNet'
+    elif 'NHITS-median' in df.columns:
+        model_name = 'NHITS'
+    elif 'PatchTST-median' in df.columns:
+        model_name = 'PatchTST'
+    else:
+        print("No recognized model prediction columns found.")
+        return pd.DataFrame()
+
+    anomalies = df[
+        (df['y'] > df[f'{model_name}-hi-100']) | 
+        (df['y'] < df[f'{model_name}-lo-100'])
+    ]
+    print(f"Found {len(anomalies)} anomalies.")
+    return anomalies
+
 if __name__ == "__main__":
     parser = setup_parser()
     args = parser.parse_args()
