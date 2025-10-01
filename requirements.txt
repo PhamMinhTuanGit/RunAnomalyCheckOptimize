@@ -11,3 +11,4 @@ feast
 watchdog
 statsmodels
 matplotlib
+optuna

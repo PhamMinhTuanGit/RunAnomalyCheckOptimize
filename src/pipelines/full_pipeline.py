@@ -30,7 +30,8 @@ def run_pipeline(model_name: str):
         # --- Training ---
         logger.info("--- Starting Training ---")
         train_df = pd.read_parquet(config["data"]["processed_data_parquet_path"]).sort_values(['unique_id', 'ds'])
-        nf, n_params = train_model(train_df=train_df, config=config, model_name=model_name)
+        nf, n_params = train_model(train_df=train_df, config=config, model_name=model_name.lower())
+        mlflow.log_metric("n_parameters", n_params)
         logger.info("--- Training Finished ---")
 
         # --- Inference ---
@@ -49,7 +50,7 @@ def run_pipeline(model_name: str):
         # --- Evaluation ---
         logger.info("--- Starting Evaluation ---")
         merged_df = pd.merge(future_df, results, on=['ds', 'unique_id'], how='inner')
-        is_distribution_loss = any(f'{nf.models[0].alias}-median' in col for col in merged_df.columns)
+        is_distribution_loss = any(f'{model_name}-median' in col for col in merged_df.columns)
         if merged_df.empty:
             logger.warning("No matching data between actuals and forecasts. Skipping evaluation.")
             mlflow.end_run()
@@ -59,13 +60,13 @@ def run_pipeline(model_name: str):
         merged_df.to_csv(output_csv, index=False)
         mlflow.log_artifact(output_csv)
 
-        model_alias = nf.models[0].alias
-        is_distribution_loss = any(f'{model_alias}-median' in col for col in merged_df.columns)
+
+        is_distribution_loss = any(f'{model_name}-median' in col for col in merged_df.columns)
 
         if is_distribution_loss:
-            y_pred = torch.tensor(merged_df[f'{model_alias}-median'].values, dtype=torch.float32)
+            y_pred = torch.tensor(merged_df[f'{model_name}-median'].values, dtype=torch.float32)
         else:
-            y_pred = torch.tensor(merged_df[model_alias].values, dtype=torch.float32)
+            y_pred = torch.tensor(merged_df[model_name].values, dtype=torch.float32)
 
         y_true = torch.tensor(merged_df['y'].values, dtype=torch.float32)
         
@@ -76,9 +77,9 @@ def run_pipeline(model_name: str):
         logger.info(f"--- Detected {len(anomalies)} anomalies. ---")
         plt.plot(merged_df['ds'], merged_df['y'], label='Actual')
         if is_distribution_loss:
-            plt.plot(merged_df['ds'], merged_df[f'{model_alias}-median'], label='Forecast')
+            plt.plot(merged_df['ds'], merged_df[f'{model_name}-median'], label='Forecast')
         else:
-            plt.plot(merged_df['ds'], merged_df[model_alias], label='Forecast')
+            plt.plot(merged_df['ds'], merged_df[model_name], label='Forecast')
         if not anomalies.empty:
             for anomaly in anomalies['ds']:
                 plt.axvline(anomaly, color='red', linestyle='--', alpha=0.5)
@@ -95,6 +96,6 @@ def run_pipeline(model_name: str):
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Run the full MLOps pipeline.")
-    parser.add_argument("--model_name", type=str, required=True, help="Name of the model to train (e.g., patchtst, timesnet).")
+    parser.add_argument("--model_name", type=str, choices=["PatchTST", "TimesNet", "NHITS"],required=True, help="Name of the model to train (e.g., patchtst, timesnet).")
     args = parser.parse_args()
     run_pipeline(args.model_name)
