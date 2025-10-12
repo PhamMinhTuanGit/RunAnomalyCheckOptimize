@@ -1,0 +1,21 @@
+
+D
+$
+__dummy"
+__dummy_idJfeature_store
+û«Ç ˜Ì™û«Ç ˜Ì™
+E
+%
+	unique_id"	unique_idJfeature_store
+û«ÇèôÏ™û«ÇèôÏ™1"$bac678e2-df13-4937-b593-0dc962c222ad*û«ÇˆçŞ™2ı
+Ü
+interface_trafficfeature_store	unique_id"
+y2¬:dsZdata/train_data.parquetŠ1feast.infra.offline_stores.file_source.FileSource¢interface_traffic_source’û«Ç¸Šø‹"û«Çè•Å™@b
+	unique_id
+û«Çğ’Ó™û«Çğ’Ó™R°
+­
+,feast.infra.online_stores.sqlite.SqliteTable"}
+Z/Users/phamminhtuan/Desktop/VHT_work/MLOps/feature_store/feature_repo/data/online_store.dbfeature_store_interface_trafficbŸdsZdata/train_data.parquetŠ1feast.infra.offline_stores.file_source.FileSource¢interface_traffic_sourceªfeature_store’û«Ç¸Šø‹"û«Çè•Å™ŠA
+!
+feature_storetime series repo
+û«Ç¸´ê‹û«Ç¸´ê‹

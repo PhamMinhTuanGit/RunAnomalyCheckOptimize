@@ -1,0 +1,9 @@
+project: traffic_project
+registry: feature_store/data/registry.db
+provider: local
+online_store:
+  type: sqlite
+  path: feature_store/data/online_store.db
+offline_store:
+  type: sqlite
+  path: ../db/local.db
